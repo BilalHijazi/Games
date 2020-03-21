@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/txt_username"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="enter your username"
+        android:inputType="textPersonName" />
+
+
+    <EditText
+        android:id="@+id/txt_emailaddr"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="enter your email"
+        android:inputType="textEmailAddress" />
+
+
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="enter your password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:id="@+id/txt_phone_number"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="enter your phone number"
+        android:inputType="phone"
+        />
+
+
+    <Button
+        android:id="@+id/popup_signup"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:text="SIGNUP" />
+
+    <Button
+        android:id="@+id/popup_cancel"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:text="CANCEL" />
+
+
+</LinearLayout>
