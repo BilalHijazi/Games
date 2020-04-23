@@ -8,7 +8,9 @@
     android:orientation="vertical"
     tools:context=".GameActivity"
     tools:menu="@menu/nonmain"
+
     >
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -34,13 +36,14 @@
     <ScrollView
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        >
 
 
         <LinearLayout
@@ -49,33 +52,92 @@
             android:orientation="vertical"
              >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                >
+
+
             <TextView
                 android:id="@+id/game_title"
-                android:layout_width="305dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_centerInParent="true"
                 android:text="Dead By Daylight"
                 android:textColor="#EE4715"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.023" />
+                android:layout_marginTop="8dp"
+
+
+                />
+
+                <TextView
+                    android:id="@+id/game_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="0.0"
+                    android:textSize="30sp"
+                    android:layout_toRightOf="@+id/game_title"
+                    android:layout_marginTop="10dp"
+                    android:drawableRight="@drawable/ic_star"
+                    android:layout_centerVertical="true"
+                    />
+               <ImageView
+                   android:id="@+id/bookmark"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:layout_toLeftOf="@+id/game_title"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="10dp"
+                   android:clickable="true"
+                   android:src="@drawable/ic_unbookmarked"
+
+
+                   />
+            </RelativeLayout>
+
 
             <ImageView
                 android:id="@+id/cover_image"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                android:src="@drawable/dead_by_daylight"
+                android:layout_gravity="center_horizontal"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            <TextView
+                android:id="@+id/publisher_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/dead_by_daylight" />
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Publisher: "
+                />
+
+            <TextView
+                android:id="@+id/genre_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Stam genre"
+                />
 
 
+        </RelativeLayout>
 
             <TextView
                 android:id="@+id/game_info"
-                android:layout_width="wrap_content"
+                android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
@@ -83,20 +145,127 @@
                 android:textColor="#0E0D0D"
                 android:textSize="24sp" />
 
+            <LinearLayout
+                android:id="@+id/platforms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+            <TextView
+                android:id="@+id/platforms_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Can be played on: "
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </LinearLayout>
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/platforms_expandaple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:ael_expanded="false"
+
+                >
+                <TextView
+                    android:id="@+id/platforms_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20sp"
+                    />
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In-Game Pictures"
+                android:textSize="25sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                />
+
+
+            <AdapterViewFlipper
+                android:id="@+id/pics_flipper"
+                android:layout_width="390dp"
+                android:layout_height="350dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="25sp"
+                android:text="Prices on the Internet:"
+                />
+
+
+
+            <ListView
+                android:id="@+id/prices_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:divider="@color/colorPrimary"
+                android:dividerHeight="5dp"
+
+
+                />
+
+
             <TextView
                 android:id="@+id/review_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Would you like to add a review ?"
+                android:text="Did you experienced the game? Help
+                 others by sharing your opinion:"
                 android:textSize="24sp"
                 android:layout_marginTop="40dp"
                 />
-            <RatingBar
-                android:id="@+id/game_ratingbar"
+
+            <Button
+                android:id="@+id/btn_add_review"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:numStars="5" />
+                android:text="Add a review"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviews_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="30dp"
+                android:scrollbars="vertical"
+
+
+                />
+
+
+
         </LinearLayout>
     </ScrollView>
+
+
+
+
+
+
+
+
 </LinearLayout>

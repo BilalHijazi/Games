@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -17,13 +19,26 @@ public class ArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
+
+        WebView article=findViewById(R.id.article_web);
+        article.setWebViewClient(new WebViewClient());
+        article.getSettings().setJavaScriptEnabled(true);
+        article.getSettings().setDomStorageEnabled(true);
+        article.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        article.loadUrl(getIntent().getStringExtra("url"));
+
+
+
+
+
+
+
 
     }
 }

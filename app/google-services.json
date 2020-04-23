@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:141939397110:android:5b8f84c8223a79b93077d7",
+        "android_client_info": {
+          "package_name": "com.example.foraddinggames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141939397110-4udie558prfedbbs3aos9jtcp6mkuf1h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foraddinggames",
+            "certificate_hash": "9d6d104bc1be33c9e15cb5282b312b5790bdf8a1"
+          }
+        },
+        {
+          "client_id": "141939397110-f0mfgrh3iriqie24tlcmihvr2geku4t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhyfLtG8WY4xCdbuKlBSrhQEH_saQTjyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141939397110-f0mfgrh3iriqie24tlcmihvr2geku4t3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:141939397110:android:5938a8585158579f3077d7",
         "android_client_info": {
           "package_name": "com.example.games"

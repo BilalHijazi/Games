@@ -7,6 +7,187 @@
     android:orientation="vertical"
    >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        >
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/main_search_bar"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            app:queryHint="Search a game..."
+
+            />
+        <Button
+            android:id="@+id/all_games"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="All Games"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+        <Button
+            android:id="@+id/advanced_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Advanced Search"
+            android:gravity="center"
+            />
+
+
+    </LinearLayout>
+
+<com.github.aakira.expandablelayout.ExpandableRelativeLayout
+    android:id="@+id/expandableLayout"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    app:ael_duration="500"
+    app:ael_expanded="false"
+    app:ael_interpolator="bounce"
+
+
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp"
+        >
+
+        <EditText
+            android:id="@+id/words_in_title"
+            android:layout_width="180sp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Words in title"
+            android:layout_marginTop="10dp"
+            />
+        <MultiAutoCompleteTextView
+            android:id="@+id/platforms_tv"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Enter platforms"
+            android:layout_below="@+id/words_in_title"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="0"
+
+            />
+       <CheckBox
+           android:id="@+id/multiplayer_checkbox"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Multi Player"
+           android:layout_below="@+id/platforms_tv"
+           android:layout_marginTop="30dp"
+           />
+        <CheckBox
+            android:id="@+id/singleplayer_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single Player"
+            android:layout_toRightOf="@+id/multiplayer_checkbox"
+            android:layout_below="@+id/platforms_tv"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+
+            />
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/genres_tv"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Enter game genre"
+            android:layout_toRightOf="@+id/words_in_title"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="0"
+            android:layout_marginLeft="8dp"
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="23sp"
+            android:text="Search"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+
+            />
+
+        <TextView
+            android:id="@+id/release_year_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Release Year"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/platforms_tv"
+            android:layout_below="@+id/genres_tv"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="70dp"
+
+            />
+
+        <EditText
+            android:id="@+id/year1"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/release_year_tv"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/platforms_tv"
+
+            android:inputType="number" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_forward"
+            android:layout_toRightOf="@+id/year1"
+            android:layout_below="@+id/release_year_tv"
+            />
+
+
+        <EditText
+            android:id="@+id/year2"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/release_year_tv"
+            android:layout_toRightOf="@+id/arrow"
+
+            android:inputType="number" />
+    </RelativeLayout>
+
+</com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ListView
+            android:id="@+id/main_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+
+            />
+    </LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,41 +200,10 @@
             android:orientation="vertical"
             >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        >
-   <androidx.appcompat.widget.SearchView
-       android:id="@+id/main_search_bar"
-       android:layout_width="300dp"
-       android:layout_height="55dp"
-       app:queryHint="Quick Search for a game..."
 
-       />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Advanced Search"
-            android:gravity="center"
-            />
-
-
-</LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-                <ListView
-                    android:id="@+id/main_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/action_card"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:clickable="true"
@@ -99,26 +249,53 @@
             />
 
         <TextView
-            android:id="@+id/action_games_number"
+            android:id="@+id/numgames_action_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Number of Games:"
             android:textSize="18sp"
             android:layout_below="@+id/action_genre"
+            android:layout_marginLeft="10dp"
             />
 
+    <TextView
+        android:id="@+id/action_games_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="0"
+        android:layout_toRightOf="@id/numgames_action_txt"
+        android:layout_below="@+id/action_genre"
+        android:layout_marginLeft="5dp"
+        />
+
         <TextView
-            android:id="@+id/avg_action_rating"
+            android:id="@+id/action_rating_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average Users' Rating:"
             android:textSize="18sp"
             android:layout_below="@+id/action_games_number"
+            android:layout_marginLeft="10dp"
+
             />
+
+    <TextView
+        android:id="@+id/avg_action_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_toRightOf="@+id/action_rating_txt"
+        android:layout_below="@+id/numgames_action_txt"
+        android:layout_marginLeft="5dp"
+        android:text="0"
+        android:drawableRight="@drawable/ic_star"
+        />
 
 
 
     <Button
+        android:id="@+id/about_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -136,6 +313,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/adventure_card"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:clickable="true"
@@ -180,25 +358,52 @@
                         android:textStyle="bold|italic" />
 
                     <TextView
-                        android:id="@+id/adventure_games_number"
+                        android:id="@+id/numgames_adventure_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Number of Games:"
                         android:textSize="18sp"
                         android:layout_below="@+id/adventure_genre"
+                        android:layout_marginLeft="10dp"
+
                         />
+                <TextView
+                    android:id="@+id/adventure_games_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="0"
+                    android:layout_toRightOf="@id/numgames_adventure_txt"
+                    android:layout_below="@+id/adventure_genre"
+                    android:layout_marginLeft="5dp"
+                    />
 
                     <TextView
+                        android:id="@+id/adventure_rating_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Average Users' Rating:"
                         android:textSize="18sp"
                         android:layout_below="@+id/adventure_games_number"
+                        android:layout_marginLeft="10dp"
+
                         />
+                <TextView
+                    android:id="@+id/avg_adventure_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_toRightOf="@+id/adventure_rating_txt"
+                    android:layout_below="@+id/numgames_adventure_txt"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:drawableRight="@drawable/ic_star"
+                    />
 
                 
 
                 <Button
+                    android:id="@+id/about_adventure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -216,6 +421,7 @@
     </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/strategy_card"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:clickable="true"
@@ -252,33 +458,60 @@
                             android:gravity="start"
                             android:paddingLeft="5dp"
                             android:paddingTop="7dp"
-                            android:text="Action Games Genre"
+                            android:text="Strategy Games Genre"
                             android:textAllCaps="true"
                             android:textColor="#8C5A25"
                             android:textSize="25sp"
                             android:textStyle="bold|italic" />
 
                         <TextView
-                            android:id="@+id/strategy_games_number"
+                            android:id="@+id/numgames_strategy_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Number of Games:"
                             android:textSize="18sp"
                             android:layout_below="@+id/strategy_genre"
+                            android:layout_marginLeft="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/strategy_games_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="0"
+                            android:layout_toRightOf="@id/numgames_strategy_txt"
+                            android:layout_below="@+id/strategy_genre"
+                            android:layout_marginLeft="5dp"
                             />
 
+
+
                         <TextView
-                            android:id="@+id/avg_strategy_rating"
+                            android:id="@+id/strategy_rating_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Average Users' Rating:"
                             android:textSize="18sp"
                             android:layout_below="@+id/strategy_games_number"
+                            android:layout_marginLeft="10dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/avg_strategy_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_toRightOf="@+id/strategy_rating_txt"
+                            android:layout_below="@+id/numgames_strategy_txt"
+                            android:layout_marginLeft="5dp"
+                            android:text="0"
+                            android:drawableRight="@drawable/ic_star"
                             />
 
 
 
                         <Button
+                            android:id="@+id/about_strategy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -296,6 +529,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/sports_card"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:clickable="true"
@@ -332,33 +566,59 @@
                             android:gravity="start"
                             android:paddingLeft="5dp"
                             android:paddingTop="7dp"
-                            android:text="Action Games Genre"
+                            android:text="Sports Games Genre"
                             android:textAllCaps="true"
                             android:textColor="#F42BAA"
                             android:textSize="25sp"
                             android:textStyle="bold|italic" />
 
                         <TextView
-                            android:id="@+id/sports_games_number"
+                            android:id="@+id/numgames_sports_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Number of Games:"
                             android:textSize="18sp"
                             android:layout_below="@+id/sports_genre"
+                            android:layout_marginLeft="10dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/sports_games_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="0"
+                            android:layout_toRightOf="@id/numgames_sports_txt"
+                            android:layout_below="@+id/sports_genre"
+                            android:layout_marginLeft="5dp"
                             />
 
                         <TextView
-                            android:id="@+id/avg_sports_rating"
+                            android:id="@+id/sports_rating_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Average Users' Rating:"
                             android:textSize="18sp"
                             android:layout_below="@+id/sports_games_number"
+                            android:layout_marginLeft="10dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/avg_sports_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_toRightOf="@+id/sports_rating_txt"
+                            android:layout_below="@+id/numgames_sports_txt"
+                            android:layout_marginLeft="5dp"
+                            android:text="0"
+                            android:drawableRight="@drawable/ic_star"
                             />
 
 
 
                         <Button
+                            android:id="@+id/about_sports"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -378,6 +638,7 @@
         </LinearLayout>
 
     </ScrollView>
+</LinearLayout>
 
 
 </LinearLayout>

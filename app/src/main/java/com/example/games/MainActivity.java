@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       private NavigationView navigationView;
       private TextView HeaderUserText;
       private NavController navController;
+      private DrawerLayout drawer;
 
-      boolean CanNavigate=false;
 
 
     @Override
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -82,13 +82,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+       // NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
 
 
 
 
-        // CustomList adapter=new CustomList(MainActivity.this,null,null,null);
 
 
         View headerview = navigationView.getHeaderView(0);
@@ -105,45 +104,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item=menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) item.getActionView();
-        searchView.setQueryHint("search a game...");
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
 
 
 
 
-
-
-            }
-        });
-
-
-
-
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
 
 
 
@@ -202,18 +173,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected (MenuItem menuItem){
 
-
         switch (menuItem.getItemId()){
             case R.id.nav_home:
-            case R.id.nav_video_games:
             case R.id.nav_news:
-
-                    NavigationUI.setupWithNavController(navigationView, navController);
-
-
-
-                break;
-
+            case R.id.nav_video_games:
+                drawer.closeDrawers();
+                NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+                return NavigationUI.onNavDestinationSelected(menuItem, navController);
 
 
 
@@ -321,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                                     User user=new User(username.getText().toString().trim(),emailaddr.getText().toString().trim(),phoneNumber.getText().toString().trim());
                                                                     Log.d("TAG1", "createUserWithEmail:success");
                                                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                                                                    UsersRef.child(firebaseUser.getUid()).setValue(user);//  should I put onSuccessLIstener?
+                                                                    UsersRef.child(firebaseUser.getUid()).setValue(user);//  should I put onSuccessListener?
                                                                     dialogSighnUp.cancel();
                                                                     updateUI(firebaseUser);
                                                                 } else {
@@ -377,6 +343,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent ProfileIntent=new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(ProfileIntent);
                 break;
+
+            case R.id.menu_bookmarks:
+                Intent intent=new Intent(MainActivity.this,BookmarksActivity.class);
+                startActivity(intent);
                  default:
                 break;
 

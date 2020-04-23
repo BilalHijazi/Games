@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="160dp">
+
+    <ImageView
+        android:id="@+id/article_image"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:id="@+id/article_name"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="stam stam stam lslkfj addafsf sfasfafs ;sf;ls"
+        />
+
+    <TextView
+        android:id="@+id/article_url"
+        android:layout_width="248dp"
+        android:layout_height="35dp"
+        android:textSize="13sp"
+        android:text="From: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
+        android:layout_alignParentBottom="true"
+/>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.games.ui;
+package com.example.games;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ import java.util.zip.Inflater;
 public class CustomList extends BaseAdapter implements Filterable {
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     DatabaseReference myRef=database.getReference("VideoGames");
-    StorageReference storageRef=FirebaseStorage.getInstance().getReference() ;
+    StorageReference storageRef=FirebaseStorage.getInstance().getReference("GamesPics") ;
+
     private final Context context;
     private List<Game>Games;
     private List<Game>filteredData ;
@@ -76,7 +78,7 @@ public class CustomList extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public View getView( int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
         View row=convertView;
         if(convertView==null)
@@ -87,26 +89,20 @@ public class CustomList extends BaseAdapter implements Filterable {
 
          Title.setText(filteredData.get(position).getName());
          Description.setText(filteredData.get(position).getInfo());
-         if(filteredData.get(position).getInGamePicturesIDs()!=null)
-        storageRef.child(filteredData.get(position).getInGamePicturesIDs().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri.toString()).
-                        centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(image);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-         else
-             image.setImageResource(R.drawable.ic_launcher_foreground);
 
-
-
-
-
+         storageRef.child(filteredData.get(position).getDbID()).listAll()
+                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                     @Override
+                     public void onSuccess(ListResult listResult) {
+                         listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                             @Override
+                             public void onSuccess(Uri uri) {
+                                 Glide.with(context).load(uri).placeholder(R.drawable.ic_launcher_foreground).
+                                         into(image);
+                             }
+                         });
+                     }
+                 });
 
 
         return  row;
@@ -133,7 +129,6 @@ public class CustomList extends BaseAdapter implements Filterable {
                  for (int i=0;i<count;i++){
                      filterableString=list.get(i).getName();
                      if(filterableString.toLowerCase().contains(filterString)){
-                         System.out.println(filterableString);
                          nlist.add(list.get(i));
                      }
                  }
@@ -151,7 +146,6 @@ public class CustomList extends BaseAdapter implements Filterable {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             filteredData = (ArrayList<Game>) results.values;
-            System.out.print(filteredData.toString());
             if (results.count > 0)
                 notifyDataSetChanged();
             else

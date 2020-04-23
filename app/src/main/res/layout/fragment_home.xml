@@ -25,59 +25,233 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn1"
+           <androidx.cardview.widget.CardView
+               android:id="@+id/pop_game"
+               android:layout_width="match_parent"
+               android:layout_height="250dp"
+               android:layout_marginTop="8dp"
+               android:clickable="true"
+               app:cardBackgroundColor="@color/colorPrimary"
+               app:cardCornerRadius="20dp"
+               app:cardElevation="30dp"
+               >
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   >
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Most Popular! "
+                       android:textSize="25sp"
+                       android:layout_alignParentLeft="true"
+                       android:layout_alignParentTop="true"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="5dp"
+                       android:drawableRight="@drawable/ic_popular"
+                       />
+
+                   <TextView
+                       android:id="@+id/review_count"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Review Count: "
+                       android:textSize="18sp"
+                       android:layout_alignParentRight="true"
+                       android:layout_alignParentBottom="true"
+                       android:layout_marginRight="8dp"
+                       android:layout_marginBottom="5dp"
+                       />
+
+                   <TextView
+                       android:id="@+id/pop_game_rate"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="0.00"
+                       android:textSize="25sp"
+                       android:drawableRight="@drawable/ic_star"
+                       android:layout_alignParentRight="true"
+                       android:layout_alignParentTop="true"
+                       android:layout_marginTop="5dp"
+                       android:layout_marginRight="5dp"
+                       />
+
+                   <TextView
+                       android:id="@+id/pop_game_name"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="stam"
+                       android:textSize="45sp"
+                       android:layout_centerInParent="true"
+                       />
+               </RelativeLayout>
+           </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_article"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/fortnite_coverphoto"
-                android:text="Popular games"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/Light_Cyan"
-                android:textSize="40sp"
-                android:textStyle="bold|italic"
-                android:typeface="normal" />
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                android:layout_below="@+id/pop_game"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:drawableRight="@drawable/ic_popular"
+                        android:text="Most Popular! "
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/url"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginBottom="5dp"
+                        android:text=" "
+                        android:textSize="15sp" />
 
 
-            <Button
-                android:id="@+id/btn2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/btn1"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/red_news_background"
-                android:src="#D73030"
-                android:text="Popular News-Articles"
-                android:textColor="@color/bright_red"
-                android:textSize="50sp" />
+                    <TextView
+                        android:id="@+id/article_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="stam"
+                        android:textSize="45sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn3"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/highest_rate"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/btn2"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/five_star_gray"
-                android:gravity="start"
-                android:src="@color/colorAccent"
-                android:text="Highly Rated"
-                android:textColor="#5C5F5F"
-                android:textSize="50sp"
-                android:textStyle="italic" />
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                android:layout_below="@+id/top_article"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn4"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Highest Rate ! "
+                        android:textSize="25sp" />
+
+
+                    <TextView
+                        android:id="@+id/highest_rate_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="stam"
+                        android:textSize="45sp" />
+
+                    <TextView
+                        android:id="@+id/highest_rate_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="25sp"
+                        android:drawableRight="@drawable/ic_star"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/highest_rate_review_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Review Count: "
+                        android:textSize="18sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="5dp"
+                        />
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/new_game"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/btn3"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/cool_background"
-                android:gravity="start"
-                android:src="@color/cardview_light_background"
-                android:text="Highly Reviewed"
-                android:textColor="#5F458F"
-                android:textSize="45sp" />
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                android:layout_below="@+id/highest_rate"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/new_game_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="stam"
+                        android:textSize="45sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Newest ! "
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/release_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Released in : "
+                        android:textSize="18sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="5dp"
+                        />
+
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
 
         </RelativeLayout>
 

@@ -25,72 +25,13 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
+    <WebView
+        android:id="@+id/article_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Call of Duty: Modern Warfare Is the Most Popular Game of 2019. Here’s Why"
-                android:textColor="#252222"
-                android:textSize="36sp"
-                android:textStyle="bold|italic" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/call_of_duty"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
-                android:text="Modern Warfare (MW) is the 16th installment in the massive Call of Duty (CoD) franchise and the fourth installment of the Modern Warfare sub-series. It’s also one of the bestselling Call of Duties in recent history. The game raked in more than $600 million in sales in its first three days, making it, as one writer estimates, the third-best launch in CoD history.
-
-Modern Warfare boasts a few more impressive statistics:
-
-Top-selling premium game of 2019 ($60 game)
-Best digital opening in Activision history (bought online vs. external hard copies)
-Bestselling CoD launch on PC ever (Personal Computer)
-Most digitally pre-ordered game on PC ever
-Sold the most digital copies in three days on PS4 ever
-Sold more units in the first three days than any other CoD in this current console generation (Xbox One and PS4 vs. Xbox 360 and PS3)
-More total hours played and total players than any CoD in six years"
-                android:textSize="30sp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Would you like to add a review ?"
-                android:textSize="24sp"
-                android:layout_marginTop="40dp"
-                />
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:numStars="5" />
-
-        </LinearLayout>
-
-    </ScrollView>
+        />
 
 </LinearLayout>

@@ -1,15 +1,17 @@
 package com.example.games;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
     private User user;
     private String Comment,Date;
-    private int Rate;
+    private float Rate;
 
-    public Review(User user, String comment, String date) {
+    public Review(User user, String comment, String date,float rate) {
         this.user = user;
         Comment = comment;
         Date = date;
-        Rate=0;
+        Rate=rate;
     }
     public Review(){}
 
@@ -37,7 +39,7 @@ public class Review {
         Date = date;
     }
 
-    public int getRate() {
+    public float getRate() {
         return Rate;
     }
 

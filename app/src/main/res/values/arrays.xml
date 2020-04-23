@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="platforms">
+        <item>Playstation1</item>
+        <item>Playstation2</item>
+        <item>Playstation3</item>
+        <item>Playstation4</item>
+        <item>Xbox360</item>
+        <item>XboxOne</item>
+        <item>Android</item>
+        <item>iOS</item>
+        <item>PC</item>
+        <item>Mac</item>
+
+
+    </string-array>
+
+    <string-array name="genres">
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Strategy</item>
+        <item>Sports</item>
+        <item>Simulation</item>
+        <item>Horror</item>
+
+
+
+    </string-array>
+</resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Games</string>
+    <string name="app_name">G4G</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -13,6 +13,19 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="about_action">An action game is a video game genre that emphasizes
+        physical challenges, including hand–eye coordination and reaction-time.
+     Enemy attacks and obstacles deplete the player character\'s health and lives,
+        and the player receives a game over when they run out of lives.</string>
+    <string name="about_adventure"> A video game of the genre characterized by investigation,
+        exploration, puzzle-solving, interaction with game characters, and a focus on narrative
+        rather than reflex-based challenges.</string>
+    <string name="about_strategy">A video game genre that focuses on skillful thinking and planning to achieve victory.
+        It emphasizes strategic, tactical, and sometimes logistical challenges.
+        Many games also offer economic challenges and exploration.</string>
+    <string name="about_sports">A video game genre that simulates the practice of sports. Most sports have been recreated with a game,
+        including team sports, track and field, extreme sports and combat sports.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

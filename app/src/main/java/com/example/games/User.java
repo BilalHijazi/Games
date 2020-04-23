@@ -1,16 +1,21 @@
 package com.example.games;
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     private String UserName,Emailaddress,PhoneNumber;
+    private ArrayList<Game> BookMarks;
 
     public User(String userName, String emailaddress, String phoneNumber) {
         UserName = userName;
         Emailaddress = emailaddress;
         PhoneNumber=phoneNumber;
-
+        BookMarks=new ArrayList<>();
     }
 
-
+    public User() {
+    }
 
     public String getUserName() {
         return UserName;
@@ -36,12 +41,21 @@ public class User {
         PhoneNumber = phoneNumber;
     }
 
+    public ArrayList<Game> getBookMarks() {
+        return BookMarks;
+    }
+
+    public void setBookMarks(ArrayList<Game> bookMarks) {
+        BookMarks = bookMarks;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "UserName='" + UserName + '\'' +
                 ", Emailaddress='" + Emailaddress + '\'' +
                 ", PhoneNumber='" + PhoneNumber + '\'' +
+                ", Favorites=" + BookMarks +
                 '}';
     }
 }

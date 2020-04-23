@@ -1,19 +1,21 @@
 package com.example.games;
 
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-    private String Name,Publisher,Platforms,Modes,Genres,ReleaseDate,Series,Info;
+    private String Name,Publisher,Platforms,Modes,Genres,ReleaseDate,Series,Info,dbID;
     private  ArrayList<Review> Reviews;
-    private ArrayList<String> InGamePicturesIDs;
     private double AvgRating=0;
     private ArrayList<GamePrice> Prices;
 
 
 
-    public Game(String name, String publisher, String platforms, String modes, String genres, String releaseDate, String series, String info, ArrayList<Review>reviews, ArrayList<GamePrice>prices, ArrayList<String>pics) {
+
+    public Game(String name, String publisher, String platforms, String modes, String genres, String releaseDate, String series, String info, ArrayList<GamePrice>prices) {
         Name = name;
         Publisher = publisher;
         Platforms = platforms;
@@ -22,14 +24,22 @@ public class Game implements Serializable {
         ReleaseDate = releaseDate;
         Series = series;
         Info = info;
-        Reviews=reviews;
+        Reviews=new ArrayList<>();
         Prices=prices;
-        InGamePicturesIDs=pics;
         AvgRating = 0.0;
+
 
 
     }
     public Game(){}
+
+    public void setDbID(String dbID) {
+        this.dbID = dbID;
+    }
+
+    public String getDbID() {
+        return dbID;
+    }
 
     public String getName() {
         return Name;
@@ -103,12 +113,8 @@ public class Game implements Serializable {
         AvgRating = avgRating;
     }
 
-    public ArrayList<String> getInGamePicturesIDs() {
-        return InGamePicturesIDs;
-    }
-
-    public void setInGamePicturesIDs(ArrayList<String> inGamePicturesIDs) {
-        InGamePicturesIDs = inGamePicturesIDs;
+    public ArrayList<GamePrice> getPrices() {
+        return Prices;
     }
 
     public void setPrices(ArrayList<GamePrice> prices) {
@@ -123,6 +129,8 @@ public class Game implements Serializable {
         this.Reviews = reviews;
     }
 
+
+
     @Override
     public String toString() {
         return "Game{" +
@@ -135,11 +143,12 @@ public class Game implements Serializable {
                 ", Series='" + Series + '\'' +
                 ", Info='" + Info + '\'' +
                 ", Reviews=" + Reviews +
-                ", InGamePicturesIDs=" + InGamePicturesIDs +
                 ", AvgRating=" + AvgRating +
                 ", Prices=" + Prices +
 
 
                 '}';
     }
+
+
 }

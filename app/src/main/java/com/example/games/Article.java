@@ -1,12 +1,16 @@
-package com.example.games.ui;
+package com.example.games;
 
 public class Article {
-    private String Title,ArticleURL,RelatedGame;
+    private String Title,ArticleURL,CoverId;
 
-    public Article(String title, String articleURL, String relatedGame) {
+    public Article(String title, String articleURL,String coverId) {
         Title = title;
         ArticleURL = articleURL;
-        RelatedGame = relatedGame;
+        CoverId=coverId;
+
+    }
+
+    public Article() {
     }
 
     public String getTitle() {
@@ -25,12 +29,12 @@ public class Article {
         ArticleURL = articleURL;
     }
 
-    public String getRelatedGame() {
-        return RelatedGame;
+    public String getCoverId() {
+        return CoverId;
     }
 
-    public void setRelatedGame(String relatedGame) {
-        RelatedGame = relatedGame;
+    public void setCoverId(String coverId) {
+        CoverId = coverId;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Article {
         return "Article{" +
                 "Title='" + Title + '\'' +
                 ", ArticleURL='" + ArticleURL + '\'' +
-                ", RelatedGame='" + RelatedGame + '\'' +
+                ", CoverId='" + CoverId + '\'' +
                 '}';
     }
 }
