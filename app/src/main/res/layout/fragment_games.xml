@@ -105,6 +105,7 @@
             android:completionThreshold="0"
             android:layout_marginLeft="8dp"
 
+
             />
 
         <Button
@@ -117,6 +118,28 @@
             android:layout_alignParentBottom="true"
 
             />
+        <TextView
+            android:id="@+id/sortby"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Sort By: "
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/sortby"
+            />
+
 
         <TextView
             android:id="@+id/release_year_tv"
@@ -159,6 +182,7 @@
             android:layout_toRightOf="@+id/arrow"
 
             android:inputType="number" />
+
     </RelativeLayout>
 
 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

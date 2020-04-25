@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.games.Game;
@@ -82,6 +83,10 @@ public class GamesFragment extends Fragment {
         Button AboutSports =view.findViewById(R.id.about_sports);
         final Button AdvancedSearch = view.findViewById(R.id.advanced_search);
         final ExpandableRelativeLayout expandableRelativeLayout=view.findViewById(R.id.expandableLayout);
+        String sortBy[]={"Rate","Popularity","Release Date","Alphabetical"};
+        Spinner spinner=view.findViewById(R.id.spinner);
+        ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
+        spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 
