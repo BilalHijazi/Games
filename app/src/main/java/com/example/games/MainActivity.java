@@ -345,8 +345,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.menu_bookmarks:
-                Intent intent=new Intent(MainActivity.this,BookmarksActivity.class);
-                startActivity(intent);
+                Intent BookmarksIntent=new Intent(MainActivity.this,BookmarksActivity.class);
+                startActivity(BookmarksIntent);
+                break;
+
+            case R.id.menu_reviews:
+                Intent ReviewsIntent=new Intent(MainActivity.this,MyReviews.class);
+                startActivity(ReviewsIntent);
+                break;
                  default:
                 break;
 

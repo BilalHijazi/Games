@@ -2,12 +2,14 @@ package com.example.games;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,14 +31,30 @@ public class BookmarksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
         setTitle("My Bookmarks");
+        Toolbar toolbar= findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         final ListView listView=findViewById(R.id.bookmarks_list);
-        usersRef.addValueEventListener(new ValueEventListener() {
+        final TextView NoItemsText=findViewById(R.id.no_bookmarks_txt);
+        usersRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ThisUser=dataSnapshot.child(mAuth.getCurrentUser().getUid()).getValue(User.class);
+                listView.setAdapter(null);
+                ThisUser=dataSnapshot.getValue(User.class);
                 if(ThisUser.getBookMarks()!=null) {
                     CustomList adapter = new CustomList(BookmarksActivity.this, ThisUser.getBookMarks());
                     listView.setAdapter(adapter);
+                }
+                else
+                {
+                    NoItemsText.setVisibility(View.VISIBLE);
                 }
             }
 

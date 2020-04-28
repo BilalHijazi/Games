@@ -88,6 +88,94 @@ public class GamesFragment extends Fragment {
         ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
         spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        adapter = new CustomList(getContext(), games);
+        ActionAdapter=new CustomList(getContext(),ActionGames);
+        AdventureAdapter=new CustomList(getContext(),AdventureGames);
+        StrategyAdapter=new CustomList(getContext(),StrategyGames);
+        SportsAdapter=new CustomList(getContext(),SportsGames);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+                    games.clear();
+                    ActionGames.clear();
+                    AdventureGames.clear();
+                    StrategyGames.clear();
+                    SportsGames.clear();
+                    for (DataSnapshot newSnapshot:dataSnapshot.getChildren()){
+                        Game g=newSnapshot.getValue(Game.class);
+                        games.add(g);
+                        if(g.getGenres().contains("action"))
+                            ActionGames.add(g);
+                        if(g.getGenres().contains("adventure"))
+                            AdventureGames.add(g);
+                        if(g.getGenres().contains("strategy"))
+                            StrategyGames.add(g);
+                        if(g.getGenres().contains("sports"))
+                            SportsGames.add(g);
+                    }
+                    adapter.notifyDataSetChanged();
+                    ActionAdapter.notifyDataSetChanged();
+                    AdventureAdapter.notifyDataSetChanged();
+                    StrategyAdapter.notifyDataSetChanged();
+                    SportsAdapter.notifyDataSetChanged();
+
+
+                    int actionNum=0,adventureNum=0,strategyNum=0,sportNum=0;
+                    double actionAvg=0,adventureAvg=0,strategyAvg=0,sportAvg=0;
+                    for (int i=0;i<games.size();i++){
+                        if (games.get(i).getGenres().toLowerCase().contains("action")) {
+                            actionNum++;
+                            actionAvg+=games.get(i).getAvgRating();
+                        }
+                        else
+                        if (games.get(i).getGenres().toLowerCase().contains("adventure")){
+                            adventureNum++;
+                            adventureAvg+=games.get(i).getAvgRating();
+
+                        }
+                        else
+                        if (games.get(i).getGenres().toLowerCase().contains("strategy")){
+                            strategyNum++;
+                            strategyAvg+=games.get(i).getAvgRating();
+
+                        }
+                        else
+                        if (games.get(i).getGenres().toLowerCase().contains("sport")){
+                            sportNum++;
+                            sportAvg+=games.get(i).getAvgRating();
+
+                        }
+
+                    }
+                    GamesNumAction.setText(actionNum+"");
+                    GamesNumAdventure.setText(adventureNum+"");
+                    GamesNumStrategy.setText(strategyNum+"");
+                    GamesNumSports.setText(sportNum+"");
+                    if (actionNum!=0)
+                        actionAvg/=actionNum;
+                    if (adventureNum!=0)
+                        adventureAvg/=adventureNum;
+                    if (strategyNum!=0)
+                        strategyAvg/=strategyNum;
+                    if (sportNum!=0)
+                        sportAvg/=sportNum;
+                    AvgRatingAction.setText(new DecimalFormat("0.0").format(actionAvg));
+                    AvgRatingAdventure.setText(new DecimalFormat("0.0").format(adventureAvg));
+                    AvgRatingStrategy.setText(new DecimalFormat("0.0").format(strategyAvg));
+                    AvgRatingSport.setText(new DecimalFormat("0.0").format(sportAvg));
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
         ///////
@@ -239,93 +327,7 @@ public class GamesFragment extends Fragment {
         });
 
 
-        adapter = new CustomList(getContext(), games);
-        ActionAdapter=new CustomList(getContext(),ActionGames);
-        AdventureAdapter=new CustomList(getContext(),AdventureGames);
-        StrategyAdapter=new CustomList(getContext(),StrategyGames);
-        SportsAdapter=new CustomList(getContext(),SportsGames);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.exists()){
-                    games.clear();
-                    ActionGames.clear();
-                    AdventureGames.clear();
-                    StrategyGames.clear();
-                    SportsGames.clear();
-                    for (DataSnapshot newSnapshot:dataSnapshot.getChildren()){
-                        Game g=newSnapshot.getValue(Game.class);
-                        games.add(g);
-                        if(g.getGenres().contains("action"))
-                            ActionGames.add(g);
-                        if(g.getGenres().contains("adventure"))
-                            AdventureGames.add(g);
-                        if(g.getGenres().contains("strategy"))
-                            StrategyGames.add(g);
-                        if(g.getGenres().contains("sports"))
-                            SportsGames.add(g);
-                    }
-                    adapter.notifyDataSetChanged();
-                    ActionAdapter.notifyDataSetChanged();
-                    AdventureAdapter.notifyDataSetChanged();
-                    StrategyAdapter.notifyDataSetChanged();
-                    SportsAdapter.notifyDataSetChanged();
-
-
-                    int actionNum=0,adventureNum=0,strategyNum=0,sportNum=0;
-                    double actionAvg=0,adventureAvg=0,strategyAvg=0,sportAvg=0;
-                    for (int i=0;i<games.size();i++){
-                        if (games.get(i).getGenres().toLowerCase().contains("action")) {
-                            actionNum++;
-                            actionAvg+=games.get(i).getAvgRating();
-                        }
-                        else
-                            if (games.get(i).getGenres().toLowerCase().contains("adventure")){
-                                adventureNum++;
-                                adventureAvg+=games.get(i).getAvgRating();
-
-                            }
-                        else
-                        if (games.get(i).getGenres().toLowerCase().contains("strategy")){
-                            strategyNum++;
-                            strategyAvg+=games.get(i).getAvgRating();
-
-                        }
-                        else
-                        if (games.get(i).getGenres().toLowerCase().contains("sport")){
-                            sportNum++;
-                            sportAvg+=games.get(i).getAvgRating();
-
-                        }
-
-                    }
-                    GamesNumAction.setText(actionNum+"");
-                    GamesNumAdventure.setText(adventureNum+"");
-                    GamesNumStrategy.setText(strategyNum+"");
-                    GamesNumSports.setText(sportNum+"");
-                    if (actionNum!=0)
-                    actionAvg/=actionNum;
-                    if (adventureNum!=0)
-                        adventureAvg/=adventureNum;
-                    if (strategyNum!=0)
-                        strategyAvg/=strategyNum;
-                    if (sportNum!=0)
-                        sportAvg/=sportNum;
-                    AvgRatingAction.setText(new DecimalFormat("0.0").format(actionAvg));
-                    AvgRatingAdventure.setText(new DecimalFormat("0.0").format(adventureAvg));
-                    AvgRatingStrategy.setText(new DecimalFormat("0.0").format(strategyAvg));
-                    AvgRatingSport.setText(new DecimalFormat("0.0").format(sportAvg));
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         if(getArguments()!=null&&getArguments().getInt("tosearch")==1){
@@ -342,6 +344,7 @@ public class GamesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(final String newText) {
+                System.out.println("ya rub");
                 if(newText.length()>2) {
                     listView.setAdapter(adapter);
                     adapter.getFilter().filter(newText);

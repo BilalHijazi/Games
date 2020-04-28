@@ -57,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        final Game SelectedGame=(Game)getIntent().getSerializableExtra("selected_game");
         Toolbar toolbar= findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,14 +69,10 @@ public class GameActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
+        toolbar.setTitle(SelectedGame.getName());
 
 
         final Button ReviewButton=findViewById(R.id.btn_add_review);
-        final Game SelectedGame=(Game)getIntent().getSerializableExtra("selected_game");
         final TextView GameTitle=findViewById(R.id.game_title);
         final TextView GameRate =findViewById(R.id.game_rate);
         final ImageView CoverImage=findViewById(R.id.cover_image);
@@ -310,7 +307,7 @@ public class GameActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 String userID=mAuth.getCurrentUser().getUid();
-                                usersRef.child(userID).addValueEventListener(new ValueEventListener() {
+                                usersRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         User user=dataSnapshot.getValue(User.class);
@@ -318,16 +315,21 @@ public class GameActivity extends AppCompatActivity {
                                         Review review=new Review(user,Comment.getText().toString(),currentDate,RateBar.getRating());
 
                                         newRevs.add(review);
-                                        adapter.notifyDataSetChanged();
+
                                         SelectedGame.setReviews(newRevs);
                                         SelectedGame.setAvgRating(SelectedGame.getAvgRating()+((review.getRate()-SelectedGame.getAvgRating())/SelectedGame.getReviews().size()));
                                         gamesRef.child(SelectedGame.getDbID()).setValue(SelectedGame).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(GameActivity.this,"Post Added!",Toast.LENGTH_SHORT).show();
-
-                                               // ReviewButton.setEnabled(false);
+                                                adapter.notifyDataSetChanged();
+                                                ReviewButton.setEnabled(false);
                                                 dialog.cancel();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                newRevs.remove(newRevs.size()-1);
                                             }
                                         });
 

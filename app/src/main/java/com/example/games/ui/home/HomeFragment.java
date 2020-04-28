@@ -369,8 +369,8 @@ public class HomeFragment extends Fragment {
 
 
 
-        Subfab1.animate().translationY(-getResources().getDimension(R.dimen.standard_75));
-        Subfab2.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
+        Subfab1.animate().translationY(getResources().getDimension(R.dimen.fab1_spacing));
+        Subfab2.animate().translationY(getResources().getDimension(R.dimen.fab2_spacing));
     }
 
     private void closeFABMenu(){

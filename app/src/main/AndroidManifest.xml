@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".BookmarksActivity"></activity>
+        <activity android:name=".MyReviews"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".BookmarksActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ListShow" />
         <activity android:name=".WebArticleExm" />
         <activity
