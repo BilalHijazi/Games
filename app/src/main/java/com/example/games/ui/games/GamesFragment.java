@@ -83,7 +83,7 @@ public class GamesFragment extends Fragment {
         Button AboutSports =view.findViewById(R.id.about_sports);
         final Button AdvancedSearch = view.findViewById(R.id.advanced_search);
         final ExpandableRelativeLayout expandableRelativeLayout=view.findViewById(R.id.expandableLayout);
-        String sortBy[]={"Rate","Popularity","Release Date","Alphabetical"};
+        String sortBy[]={"Rating","Popularity","Release Date","Alphabetically"};
         Spinner spinner=view.findViewById(R.id.spinner);
         ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
         spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,6 +120,10 @@ public class GamesFragment extends Fragment {
                     AdventureAdapter.notifyDataSetChanged();
                     StrategyAdapter.notifyDataSetChanged();
                     SportsAdapter.notifyDataSetChanged();
+                        String newText=searchView.getQuery().toString().trim();
+                        if(newText.length()>2) {
+                            adapter.getFilter().filter(newText);
+                    }
 
 
                     int actionNum=0,adventureNum=0,strategyNum=0,sportNum=0;
@@ -344,15 +348,12 @@ public class GamesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(final String newText) {
-                System.out.println("ya rub");
                 if(newText.length()>2) {
                     listView.setAdapter(adapter);
                     adapter.getFilter().filter(newText);
-
                 }
                 else {
                     listView.setAdapter(null);
-
                 }
                 return false;
             }

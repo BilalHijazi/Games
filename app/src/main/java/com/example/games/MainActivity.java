@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
          drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -112,12 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main, menu);
 
 
-
-
-
-
-
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -140,31 +136,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Change UI according to user data.
     public void  updateUI(FirebaseUser account){
+
         if(account != null){
             Toast.makeText(this,"You Signed In successfully",Toast.LENGTH_LONG).show();
-            MenuItem item =navigationView.getMenu().findItem(R.id.user_properties);
-            item.setVisible(true);
-            MenuItem item2=navigationView.getMenu().findItem(R.id.menu_login);
-            item2.setVisible(false);
+            navigationView.getMenu().findItem(R.id.user_properties).setVisible(true);
+            navigationView.getMenu().findItem(R.id.menu_login).setVisible(false);
             UsersRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   HeaderUserText.setText(dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("userName").getValue(String.class));
+                    HeaderUserText.setText(dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("userName").getValue(String.class));
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
 
 
         }else {
             Toast.makeText(this,"No Logged in user",Toast.LENGTH_LONG).show();
-            MenuItem item=navigationView.getMenu().findItem(R.id.menu_login);
-            item.setVisible(true);
-            MenuItem item2 =navigationView.getMenu().findItem(R.id.user_properties);
-            item2.setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_login).setVisible(true);
+            navigationView.getMenu().findItem(R.id.user_properties).setVisible(false);
+
             HeaderUserText.setText("");
 
         }
@@ -181,11 +174,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
                 return NavigationUI.onNavDestinationSelected(menuItem, navController);
 
-
-
             case R.id.menu_logout:
-                mAuth.signOut();
-                updateUI(mAuth.getCurrentUser());
+                final Dialog dialog=new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.logout_popup);
+                dialog.setCancelable(false);
+                Button Yes=dialog.findViewById(R.id.logout_yes);
+                Button No=dialog.findViewById(R.id.logout_no);
+                dialog.show();
+                Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAuth.signOut();
+                        updateUI(null);
+                        dialog.cancel();
+                    }
+                });
+                No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
                 break;
 
             case R.id.menu_login:

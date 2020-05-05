@@ -50,11 +50,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String username = mReviews.get(position).getUser().getUserName();
-        String email=mReviews.get(position).getUser().getEmailaddress();
-        String comment=mReviews.get(position).getComment();
-        String date=mReviews.get(position).getDate();
-        float rating=mReviews.get(position).getRate();
+        String username = mReviews.get(mReviews.size()-position-1).getUser().getUserName();
+        String email=mReviews.get(mReviews.size()-position-1).getUser().getEmailaddress();
+        String comment=mReviews.get(mReviews.size()-position-1).getComment();
+        String date=mReviews.get(mReviews.size()-position-1).getDate();
+        float rating=mReviews.get(mReviews.size()-position-1).getRate();
         holder.UserName.setText(username);
         holder.Email.setText(email);
         holder.Comment.setText(comment);

@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Stack;
 
 public class GameActivity extends AppCompatActivity {
     StorageReference storageRef=FirebaseStorage.getInstance().getReference("GamesPics");
@@ -83,7 +84,7 @@ public class GameActivity extends AppCompatActivity {
         final ImageView BookMark =findViewById(R.id.bookmark);
 
 
-
+        if(mAuth.getCurrentUser()!=null)
         usersRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -219,7 +220,7 @@ public class GameActivity extends AppCompatActivity {
             storageRef.child(SelectedGame.getDbID()).listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                 @Override
                 public void onSuccess(ListResult listResult) {
-                     adapterFlipper = new myAdapterFlipper(GameActivity.this, listResult.getItems());
+                     adapterFlipper = new myAdapterFlipper(getApplicationContext(), listResult.getItems());
                     adapterViewFlipper.setAdapter(adapterFlipper);
                     adapterViewFlipper.setFlipInterval(3000);
                     adapterViewFlipper.startFlipping();
@@ -235,16 +236,13 @@ public class GameActivity extends AppCompatActivity {
 
         final RecyclerView recyclerView=findViewById(R.id.reviews_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        newRevs=new ArrayList<>();
         if(SelectedGame.getReviews()!=null) {
             newRevs=SelectedGame.getReviews();
 
-
         }
-        else {
-            newRevs =new ArrayList<>();
 
-        }
-        adapter = new ReviewsAdapter(GameActivity.this, newRevs);
+        adapter = new ReviewsAdapter(getApplicationContext(), newRevs);
         recyclerView.setAdapter(adapter);
 
 
@@ -255,16 +253,17 @@ public class GameActivity extends AppCompatActivity {
                listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                    @Override
                    public void onSuccess(Uri uri) {
-                       Glide.with(GameActivity.this).load(uri).placeholder(R.drawable.ic_launcher_foreground)
+                       Glide.with(getApplicationContext()).load(uri).placeholder(R.drawable.ic_launcher_foreground)
                                .into(CoverImage);
                    }
                });
            }
        });
         GameInfo.setText(SelectedGame.getInfo());
-
-        for (Review review:newRevs){
-            if (review.getUser().getEmailaddress().toLowerCase().equals(mAuth.getCurrentUser().getEmail()))
+        if(mAuth.getCurrentUser()!=null)
+        for (int i=0;i<newRevs.size();i++){
+            Review review=newRevs.get(i);
+            if (review.getUser().getEmailaddress().toLowerCase().equals(mAuth.getCurrentUser().getEmail().toLowerCase()))
                 ReviewButton.setEnabled(false);
         }
 
@@ -316,7 +315,9 @@ public class GameActivity extends AppCompatActivity {
 
                                         newRevs.add(review);
 
+
                                         SelectedGame.setReviews(newRevs);
+
                                         SelectedGame.setAvgRating(SelectedGame.getAvgRating()+((review.getRate()-SelectedGame.getAvgRating())/SelectedGame.getReviews().size()));
                                         gamesRef.child(SelectedGame.getDbID()).setValue(SelectedGame).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
