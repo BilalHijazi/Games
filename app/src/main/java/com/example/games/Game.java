@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-    private String Name,Publisher,Platforms,Modes,Genres,ReleaseDate,Series,Info,dbID;
+    private String Name,Publisher,Platforms,Genres,ReleaseDate,Series,Info,dbID;
+    boolean SinglePlayer,MultiPlayer;
     private  ArrayList<Review> Reviews;
     private double AvgRating=0;
     private ArrayList<GamePrice> Prices;
@@ -15,17 +16,18 @@ public class Game implements Serializable {
 
 
 
-    public Game(String name, String publisher, String platforms, String modes, String genres, String releaseDate, String series, String info, ArrayList<GamePrice>prices) {
+    public Game(String name, String publisher, String platforms, String genres, String releaseDate, String series, String info, ArrayList<GamePrice>prices,boolean sp,boolean mp) {
         Name = name;
         Publisher = publisher;
         Platforms = platforms;
-        Modes = modes;
         Genres = genres;
         ReleaseDate = releaseDate;
         Series = series;
         Info = info;
         Reviews=new ArrayList<>();
         Prices=prices;
+        SinglePlayer=sp;
+        MultiPlayer=mp;
         AvgRating = 0.0;
 
 
@@ -49,6 +51,41 @@ public class Game implements Serializable {
         Name = name;
     }
 
+    public boolean isSinglePlayer() {
+        return SinglePlayer;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "Name='" + Name + '\'' +
+                ", Publisher='" + Publisher + '\'' +
+                ", Platforms='" + Platforms + '\'' +
+                ", Genres='" + Genres + '\'' +
+                ", ReleaseDate='" + ReleaseDate + '\'' +
+                ", Series='" + Series + '\'' +
+                ", Info='" + Info + '\'' +
+                ", dbID='" + dbID + '\'' +
+                ", SinglePlayer=" + SinglePlayer +
+                ", MultiPlayer=" + MultiPlayer +
+                ", Reviews=" + Reviews +
+                ", AvgRating=" + AvgRating +
+                ", Prices=" + Prices +
+                '}';
+    }
+
+    public void setSinglePlayer(boolean singlePlayer) {
+        SinglePlayer = singlePlayer;
+    }
+
+    public boolean isMultiPlayer() {
+        return MultiPlayer;
+    }
+
+    public void setMultiPlayer(boolean multiPlayer) {
+        MultiPlayer = multiPlayer;
+    }
+
     public String getPublisher() {
         return Publisher;
     }
@@ -65,13 +102,6 @@ public class Game implements Serializable {
         Platforms = platforms;
     }
 
-    public String getModes() {
-        return Modes;
-    }
-
-    public void setModes(String modes) {
-        Modes = modes;
-    }
 
     public String getGenres() {
         return Genres;
@@ -127,27 +157,6 @@ public class Game implements Serializable {
 
     public void setReviews(ArrayList<Review> reviews) {
         this.Reviews = reviews;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Game{" +
-                "Name='" + Name + '\'' +
-                ", Publisher='" + Publisher + '\'' +
-                ", Platforms='" + Platforms + '\'' +
-                ", Modes='" + Modes + '\'' +
-                ", Genres='" + Genres + '\'' +
-                ", ReleaseDate='" + ReleaseDate + '\'' +
-                ", Series='" + Series + '\'' +
-                ", Info='" + Info + '\'' +
-                ", Reviews=" + Reviews +
-                ", AvgRating=" + AvgRating +
-                ", Prices=" + Prices +
-
-
-                '}';
     }
 
 

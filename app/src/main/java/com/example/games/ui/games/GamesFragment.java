@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
@@ -35,12 +36,17 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class GamesFragment extends Fragment {
     ArrayList<Game>games,ActionGames,AdventureGames,StrategyGames,SportsGames;
-    CustomList adapter,ActionAdapter,AdventureAdapter,StrategyAdapter,SportsAdapter;
+    CustomList adapter,ActionAdapter,AdventureAdapter,StrategyAdapter,SportsAdapter,advancedAdapter;
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     SearchView searchView;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,6 +93,13 @@ public class GamesFragment extends Fragment {
         Spinner spinner=view.findViewById(R.id.spinner);
         ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
         spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Button advancedSearchBtn=view.findViewById(R.id.advanced_search_btn);
+        final CheckBox singlePlayer=view.findViewById(R.id.singleplayer_checkbox);
+        final CheckBox multiPlayer=view.findViewById(R.id.multiplayer_checkbox);
+        final EditText Year1=view.findViewById(R.id.year1);
+        final EditText Year2=view.findViewById(R.id.year2);
+
+
 
         adapter = new CustomList(getContext(), games);
         ActionAdapter=new CustomList(getContext(),ActionGames);
@@ -208,14 +221,14 @@ public class GamesFragment extends Fragment {
         });
 
 
-        EditText WordsInTitle=view.findViewById(R.id.words_in_title);
-        MultiAutoCompleteTextView Platforms=view.findViewById(R.id.platforms_tv);
+        final EditText WordsInTitle=view.findViewById(R.id.words_in_title);
+        final MultiAutoCompleteTextView Platforms=view.findViewById(R.id.platforms_tv);
         ArrayAdapter<String> platformsAdapter= new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
                 getContext().getResources().getStringArray(R.array.platforms));
         Platforms.setAdapter(platformsAdapter);
         Platforms.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
-        MultiAutoCompleteTextView Genres=view.findViewById(R.id.genres_tv);
+        final MultiAutoCompleteTextView Genres=view.findViewById(R.id.genres_tv);
         ArrayAdapter<String> genresAdapter= new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
                 getContext().getResources().getStringArray(R.array.genres));
         Genres.setAdapter(genresAdapter);
@@ -239,6 +252,52 @@ public class GamesFragment extends Fragment {
                 }
 
 
+            }
+        });
+        advancedSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Game> advancedGames=new ArrayList<>();
+                final String singlePlatforms[]=Platforms.getText().toString().trim().split("\\s*,\\s*");
+                final String singleGenres[]=Genres.getText().toString().trim().split("\\s*,\\s*");
+
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Game game=dataSnapshot.getValue(Game.class);
+                        if(game.getName().contains(WordsInTitle.getText().toString().trim())) {
+                            String gamePlats[]=game.getPlatforms().split("\\s*,\\s*");
+                            if(singlePlatforms.length == gamePlats.length && Arrays.asList(singlePlatforms).containsAll(Arrays.asList(gamePlats))){
+                                String gameGens[]=game.getGenres().split("\\s*,\\s*");
+                                if(singleGenres.length == gameGens.length && Arrays.asList(singleGenres).containsAll(Arrays.asList(gameGens))){
+                                    if(game.isSinglePlayer()&&singlePlayer.isChecked()){
+                                        if(game.isMultiPlayer()&&multiPlayer.isChecked()){
+                                            SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+                                            Date d= null;
+                                            try {
+                                                d = sdf.parse(game.getReleaseDate());
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Calendar calendar=Calendar.getInstance();
+                                            calendar.setTime(d);
+                                            if(Integer.parseInt(Year1.getText().toString())<=calendar.get(Calendar.YEAR)&&
+                                                    calendar.get(Calendar.YEAR)<=Integer.parseInt(Year2.getText().toString())){
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -413,6 +472,8 @@ public class GamesFragment extends Fragment {
 
 
     }
+
+
 
 
 }

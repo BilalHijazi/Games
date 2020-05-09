@@ -65,10 +65,6 @@
 
         <item android:title="Tools">
             <menu>
-                <item android:title="Search"
-                    android:id="@+id/menu_search"
-                    android:icon="@drawable/ic_search"
-                    />
                 <item
                     android:id="@+id/menu_settings"
                     android:icon="@drawable/ic_settings_black_24dp"

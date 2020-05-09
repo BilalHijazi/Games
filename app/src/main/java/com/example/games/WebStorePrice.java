@@ -1,0 +1,35 @@
+package com.example.games;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+public class WebStorePrice extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_web_store_price);
+        Toolbar toolbar= findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        WebView article=findViewById(R.id.store_web);
+        article.setWebViewClient(new WebViewClient());
+        article.getSettings().setJavaScriptEnabled(true);
+        article.getSettings().setDomStorageEnabled(true);
+        article.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        article.loadUrl(getIntent().getStringExtra("url"));
+    }
+}

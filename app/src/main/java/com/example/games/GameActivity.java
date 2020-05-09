@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterViewFlipper;
 import android.widget.Button;
 import android.widget.EditText;
@@ -268,13 +270,20 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
+        ListView PricesList = findViewById(R.id.prices_list);
 
        if(SelectedGame.getPrices()!=null) {
-          ListView PricesList = findViewById(R.id.prices_list);
-          ArrayList<GamePrice> prices = SelectedGame.getPrices();
+          final ArrayList<GamePrice> prices = SelectedGame.getPrices();
           PriceAdapter priceAdapter = new PriceAdapter(GameActivity.this, prices);
           PricesList.setAdapter(priceAdapter);
           setListViewHeightBasedOnChildren(PricesList); // Idunno if this does work!
+           PricesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+               @Override
+               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                   Intent intent=new Intent(GameActivity.this,WebStorePrice.class);
+                   intent.putExtra("url",prices.get(position).getStoreURL());
+               }
+           });
       }
 
 
