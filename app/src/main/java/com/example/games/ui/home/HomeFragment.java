@@ -263,7 +263,6 @@ public class HomeFragment extends Fragment {
                 Article article=new Article();
                 for (DataSnapshot ds:dataSnapshot.getChildren())
                  article=ds.getValue(Article.class);
-                System.out.println(article);
                 ArticleTitle.setText(article.getTitle());
                 Url.setText(article.getArticleURL());
                 newsStorage.child(article.getCoverId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

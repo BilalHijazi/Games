@@ -235,7 +235,6 @@ StorageReference newsPicsRef=storage.getReference("NewsPics");
                  if (dataSnapshot.exists()){
                      for (DataSnapshot ds:dataSnapshot.getChildren()){
                          articles.add(ds.getValue(Article.class));
-                         System.out.println(articles);
                      }
                      adapter.notifyDataSetChanged();
                  }

@@ -1,7 +1,14 @@
 package com.example.games;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,6 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
   private  AppBarConfiguration mAppBarConfiguration;
   private FirebaseAuth mAuth;
       private FirebaseDatabase database = FirebaseDatabase.getInstance();
-      private DatabaseReference UsersRef;
+      private DatabaseReference UsersRef,breakingNewsRef;
       private NavigationView navigationView;
       private TextView HeaderUserText;
       private NavController navController;
@@ -60,10 +71,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         UsersRef=database.getReference("Users");
+        breakingNewsRef=database.getReference("NewsAndArticles").child("breakingNews");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth=FirebaseAuth.getInstance();
-
+        Intent serviceIntent=new Intent(this,NewsService.class);
 
 
 
@@ -103,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

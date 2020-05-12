@@ -184,6 +184,25 @@
 
             android:inputType="number" />
 
+        <EditText
+            android:id="@+id/price_till"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:hint="till"
+            android:layout_above="@+id/advanced_search_btn"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/ic_dollar"
+            />
+        <EditText
+            android:id="@+id/price_from"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:hint="from"
+            android:layout_above="@+id/advanced_search_btn"
+            android:layout_toLeftOf="@id/price_till"
+            android:drawableLeft="@drawable/ic_dollar"
+            />
+
     </RelativeLayout>
 
 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

@@ -285,6 +285,7 @@ public class GamesFragment extends Fragment {
                                             if(Integer.parseInt(Year1.getText().toString())<=calendar.get(Calendar.YEAR)&&
                                                     calendar.get(Calendar.YEAR)<=Integer.parseInt(Year2.getText().toString())){
 
+
                                             }
                                         }
                                     }

@@ -6,17 +6,32 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity {
-
+Intent serviceIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Toolbar toolbar= findViewById(R.id.toolbar);
+        Switch notificationSwitch=findViewById(R.id.articles_notifications);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    serviceIntent = new Intent(SettingsActivity.this, NewsService.class);
+                    getApplicationContext().startService(serviceIntent);
+                }
+                else {
+                    getApplicationContext().stopService(serviceIntent);
+                }
+            }
+        });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

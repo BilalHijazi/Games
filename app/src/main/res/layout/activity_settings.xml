@@ -25,7 +25,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/articles_notifications"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="Allow Sending Notifications"
