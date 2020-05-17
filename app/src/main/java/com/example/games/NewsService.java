@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,11 +79,15 @@ public class NewsService extends Service {
             }
         });
 
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this,"Service Started",Toast.LENGTH_LONG).show();
+
         return super.onStartCommand(intent,flags,startId);
+
     }
 
     private void createNotificationChannel() {
@@ -105,6 +110,8 @@ public class NewsService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Toast.makeText(this,"Service Stopped",Toast.LENGTH_LONG).show();
+
 
     }
 

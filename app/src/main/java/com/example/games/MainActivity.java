@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,6 +40,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -75,13 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth=FirebaseAuth.getInstance();
-        Intent serviceIntent=new Intent(this,NewsService.class);
-
-
-
-
-
-
 
          drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);

@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -32,6 +35,9 @@ public class ArticleActivity extends AppCompatActivity {
         article.getSettings().setDomStorageEnabled(true);
         article.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
         article.loadUrl(getIntent().getStringExtra("url"));
+
+
+
 
 
 

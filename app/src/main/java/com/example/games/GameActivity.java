@@ -84,6 +84,23 @@ public class GameActivity extends AppCompatActivity {
         TextView Publisher=findViewById(R.id.publisher_txt);
         TextView Genre=findViewById(R.id.genre_txt);
         final ImageView BookMark =findViewById(R.id.bookmark);
+        TextView Range=findViewById(R.id.range);
+        if(SelectedGame.getPrices()==null){
+            Range.setVisibility(View.GONE);
+        }
+        else {
+            String min=SelectedGame.getPrices().get(0).getPrice()+"";
+            String max=SelectedGame.getPrices().get(0).getPrice()+"";
+            for (int i = 1; i <SelectedGame.getPrices().size() ; i++) {
+                GamePrice gamePrice=SelectedGame.getPrices().get(i);
+                if(Double.parseDouble(min)>gamePrice.getPrice())
+                    min =gamePrice.getPrice()+"";
+                if(Double.parseDouble(max)<gamePrice.getPrice())
+                    max =gamePrice.getPrice()+"";
+
+            }
+            Range.setText("range: "+min+"$ - "+max+"$");
+        }
 
 
         if(mAuth.getCurrentUser()!=null)
@@ -368,14 +385,6 @@ public class GameActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
 
 
     }

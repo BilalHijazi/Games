@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -93,11 +94,13 @@ public class GamesFragment extends Fragment {
         Spinner spinner=view.findViewById(R.id.spinner);
         ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
         spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Button advancedSearchBtn=view.findViewById(R.id.advanced_search_btn);
+        final Button advancedSearchBtn=view.findViewById(R.id.advanced_search_btn);
         final CheckBox singlePlayer=view.findViewById(R.id.singleplayer_checkbox);
         final CheckBox multiPlayer=view.findViewById(R.id.multiplayer_checkbox);
         final EditText Year1=view.findViewById(R.id.year1);
         final EditText Year2=view.findViewById(R.id.year2);
+        final TextView From=view.findViewById(R.id.price_from);
+        final TextView Till=view.findViewById(R.id.price_till);
 
 
 
@@ -257,7 +260,8 @@ public class GamesFragment extends Fragment {
         advancedSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Game> advancedGames=new ArrayList<>();
+                final ArrayList<Game> advancedGames=new ArrayList<>();
+                advancedAdapter=new CustomList(getContext(),advancedGames);
                 final String singlePlatforms[]=Platforms.getText().toString().trim().split("\\s*,\\s*");
                 final String singleGenres[]=Genres.getText().toString().trim().split("\\s*,\\s*");
 
@@ -265,33 +269,71 @@ public class GamesFragment extends Fragment {
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Game game=dataSnapshot.getValue(Game.class);
-                        if(game.getName().contains(WordsInTitle.getText().toString().trim())) {
-                            String gamePlats[]=game.getPlatforms().split("\\s*,\\s*");
-                            if(singlePlatforms.length == gamePlats.length && Arrays.asList(singlePlatforms).containsAll(Arrays.asList(gamePlats))){
-                                String gameGens[]=game.getGenres().split("\\s*,\\s*");
-                                if(singleGenres.length == gameGens.length && Arrays.asList(singleGenres).containsAll(Arrays.asList(gameGens))){
-                                    if(game.isSinglePlayer()&&singlePlayer.isChecked()){
-                                        if(game.isMultiPlayer()&&multiPlayer.isChecked()){
-                                            SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-                                            Date d= null;
-                                            try {
-                                                d = sdf.parse(game.getReleaseDate());
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
-                                            Calendar calendar=Calendar.getInstance();
-                                            calendar.setTime(d);
-                                            if(Integer.parseInt(Year1.getText().toString())<=calendar.get(Calendar.YEAR)&&
-                                                    calendar.get(Calendar.YEAR)<=Integer.parseInt(Year2.getText().toString())){
-
-
+                        if (dataSnapshot.exists()){
+                            for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                Game game=ds.getValue(Game.class);
+                                if(game.getName()==null||game.getName().toLowerCase().contains(WordsInTitle.getText().toString().toLowerCase().trim())) {
+                                        boolean noPlatformsMatches=true;
+                                        for (int i = 0; i <singlePlatforms.length ; i++) {
+                                            if(game.getPlatforms().toLowerCase().trim().contains(singlePlatforms[i].toLowerCase().trim())){
+                                                noPlatformsMatches=false;
+                                                break;
                                             }
                                         }
-                                    }
+                                        if(!noPlatformsMatches) {
+                                            boolean noGenresMatches = true;
+                                            for (int i = 0; i < singleGenres.length; i++) {
+                                                if (game.getGenres().toLowerCase().trim().contains(singleGenres[i].toLowerCase().trim())) {
+                                                    noGenresMatches = false;
+                                                    break;
+                                                }
+                                            }
+                                            if(!noGenresMatches&&!singlePlayer.isChecked()&&!multiPlayer.isChecked()) {
+                                                singlePlayer.setChecked(true);
+                                                multiPlayer.setChecked(true);
+                                            }
+                                            if ((!noGenresMatches&& singlePlayer.isChecked()&&game.isSinglePlayer())
+                                            ||(!noGenresMatches&&multiPlayer.isChecked()&&game.isMultiPlayer())) {
+
+                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                    Date d = null;
+                                                    try {
+                                                        d = sdf.parse(game.getReleaseDate());
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    Calendar calendar = Calendar.getInstance();
+                                                    calendar.setTime(d);
+                                                    if (Year1.getText().toString().equals("")||Year2.getText().toString().equals("")||Integer.parseInt(Year1.getText().toString()) <= calendar.get(Calendar.YEAR) &&
+                                                            calendar.get(Calendar.YEAR) <= Integer.parseInt(Year2.getText().toString())) {
+                                                        if (game.getPrices() != null) {
+                                                            Double min = game.getPrices().get(0).getPrice(), max = game.getPrices().get(0).getPrice();
+                                                            for (int i = 0; i < game.getPrices().size(); i++) {
+                                                                if (min > game.getPrices().get(i).getPrice())
+                                                                    min = game.getPrices().get(i).getPrice();
+                                                                if (max < game.getPrices().get(i).getPrice())
+                                                                    max = game.getPrices().get(i).getPrice();
+                                                            }
+                                                            if (Double.parseDouble(From.getText().toString()) >= min && Double.parseDouble(Till.getText().toString()) <= max) {
+                                                                advancedGames.add(game);
+                                                            }
+                                                        }
+                                                        else {
+                                                            advancedGames.add(game);
+                                                        }
+
+                                                    }
+                                                }
+
+                                        }
                                 }
                             }
+                            advancedAdapter.notifyDataSetChanged();
+                            listView.setAdapter(advancedAdapter);
+                            AdvancedSearch.callOnClick();
+
                         }
+
                     }
 
                     @Override

@@ -3,6 +3,8 @@ package com.example.games;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,15 +22,22 @@ Intent serviceIntent;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+           // notificationSwitch.setChecked(true);
+           // notificationSwitch.setChecked(false);
+
+
+
+        //notificationSwitch.setChecked(false);
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     serviceIntent = new Intent(SettingsActivity.this, NewsService.class);
-                    getApplicationContext().startService(serviceIntent);
+                    SettingsActivity.this.startService(serviceIntent);
                 }
                 else {
-                    getApplicationContext().stopService(serviceIntent);
+                    SettingsActivity.this.stopService(serviceIntent);
                 }
             }
         });
@@ -36,12 +45,18 @@ Intent serviceIntent;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new         Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
 
 
 
     }
+
+
+
+
+
+
 
 }

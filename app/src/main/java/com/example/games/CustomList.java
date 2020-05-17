@@ -88,12 +88,12 @@ public class CustomList extends BaseAdapter implements Filterable {
             final ImageView image = (ImageView) row.findViewById(R.id.listview_image);
 
          Title.setText(filteredData.get(position).getName());
-         Description.setText(filteredData.get(position).getInfo());
-
-         storageRef.child(filteredData.get(position).getDbID()).listAll()
+         Description.setText(filteredData.get(position).getGenres());
+         storageRef.child(filteredData.get(position).getDbID()).list(1)
                  .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                      @Override
                      public void onSuccess(ListResult listResult) {
+                         if(listResult.getItems().size()!=0)
                          listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                              @Override
                              public void onSuccess(Uri uri) {

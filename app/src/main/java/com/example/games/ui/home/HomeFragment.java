@@ -211,6 +211,7 @@ public class HomeFragment extends Fragment {
                         gamesStorage.child(NewGame.getDbID()).listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                             @Override
                             public void onSuccess(ListResult listResult) {
+                                if (listResult.getItems().size()!=0)
                                 listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
