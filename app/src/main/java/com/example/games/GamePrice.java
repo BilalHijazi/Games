@@ -1,14 +1,14 @@
 package com.example.games;
 
-public class GamePrice {
+import java.io.Serializable;
+
+public class GamePrice implements Serializable {
     private String StoreName,StoreURL;
-    private Game game;
     private double price;
 
-    public GamePrice(String storeName, String storeURL, Game game, double price) {
+    public GamePrice(String storeName, String storeURL, double price) {
         StoreName = storeName;
         StoreURL = storeURL;
-        this.game = game;
         this.price = price;
     }
     public GamePrice(){}
@@ -29,13 +29,6 @@ public class GamePrice {
         StoreURL = storeURL;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     public double getPrice() {
         return price;
@@ -50,7 +43,6 @@ public class GamePrice {
         return "GamePrice{" +
                 "StoreName='" + StoreName + '\'' +
                 ", StoreURL='" + StoreURL + '\'' +
-                ", game=" + game +
                 ", price=" + price +
                 '}';
     }

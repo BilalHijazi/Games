@@ -9,18 +9,18 @@
         android:textSize="33sp"
         android:text="stam"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
         />
 
     <TextView
         android:id="@+id/website"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="23sp"
-        android:text="Click to go to the Store's Website"
-        android:layout_below="@+id/store_name"
-        android:layout_marginTop="10dp"
+        android:layout_width="360dp"
+        android:layout_height="20dp"
+        android:textSize="15spsp"
+        android:text="stam"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_alignParentBottom="true"
         />
 
     <TextView
@@ -33,6 +33,15 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:drawableRight="@drawable/ic_dollar"
+        />
+
+    <ImageView
+        android:id="@+id/favicon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+
         />
 
 </RelativeLayout>

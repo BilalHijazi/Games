@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.widget.Toast;
@@ -22,11 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class NewsService extends Service {
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     String CHANNEL_ID;
     DatabaseReference breakingNewsRef=database.getReference("NewsAndArticles").child("breakingNews");
     Notification notification;
+
 
 
 
@@ -44,22 +47,25 @@ public class NewsService extends Service {
         breakingNewsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Article article=dataSnapshot.getValue(Article.class);
-                Intent i=new Intent(getApplicationContext(),ArticleActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("url",article.getArticleURL());
-                PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,i,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(pendingIntent);
-                NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                builder.setContentText("Title: "+article.getTitle());
-                notification=builder.build();
-                notificationManager.notify(0,notification);
 
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                boolean ServiceOn=getSharedPreferences("MyPref",0).getBoolean("service_is_on",false);
+                if(ServiceOn) {
+                    Article article = dataSnapshot.getValue(Article.class);
+                    Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra("url", article.getArticleURL());
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, i,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(pendingIntent);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    builder.setContentText("Title: " + article.getTitle());
+                    notification = builder.build();
+                    notificationManager.notify(0, notification);
+                }
 
             }
 
@@ -79,15 +85,25 @@ public class NewsService extends Service {
             }
         });
 
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this,"Service Started",Toast.LENGTH_LONG).show();
-
         return super.onStartCommand(intent,flags,startId);
 
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     private void createNotificationChannel() {
@@ -107,17 +123,5 @@ public class NewsService extends Service {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(this,"Service Stopped",Toast.LENGTH_LONG).show();
-
-
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
 }
+
