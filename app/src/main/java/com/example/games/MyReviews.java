@@ -3,6 +3,7 @@ package com.example.games;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -42,6 +43,7 @@ User ThisUser;
             }
         });
         final RecyclerView recyclerView=findViewById(R.id.myreviews_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final TextView NoItemsText=findViewById(R.id.no_reviews_txt);
         final ArrayList<Review> myReviews=new ArrayList<>();
 
@@ -79,6 +81,7 @@ User ThisUser;
                 ThisUser=dataSnapshot.getValue(User.class);
                     ReviewsAdapter adapter = new ReviewsAdapter(MyReviews.this,myReviews);
                     recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
             }
 

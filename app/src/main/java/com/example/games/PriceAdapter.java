@@ -46,7 +46,7 @@ public class PriceAdapter extends ArrayAdapter<GamePrice> {
        if(row==null){
             row= LayoutInflater.from(getContext()).inflate(R.layout.price_item,parent,false);
        }
-       GamePrice gamePrice=prices.get(position);
+       final GamePrice gamePrice=prices.get(position);
         TextView StoreName =row.findViewById(R.id.store_name);
         TextView Price=row.findViewById(R.id.price);
         TextView Website=row.findViewById(R.id.website);
@@ -55,17 +55,10 @@ public class PriceAdapter extends ArrayAdapter<GamePrice> {
         StoreName.setText(gamePrice.getStoreName());
         Price.setText(gamePrice.getPrice()+"");
         Website.setText(gamePrice.getStoreURL());
-        URL url=null;
-        try {
-             url=new URL(gamePrice.getStoreURL());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
-        final URL finalUrl = url;
         new Thread(new Runnable() {
             public void run() {
-                final Bitmap b = getBitmapFromURL(finalUrl);
+                final Bitmap b = fetchFavicon(Uri.parse(gamePrice.getStoreURL()));
                 Favicon.post(new Runnable() {
                     public void run() {
                         Favicon.setImageBitmap(b);
@@ -75,23 +68,24 @@ public class PriceAdapter extends ArrayAdapter<GamePrice> {
         }).start();
 
 
-
-
-
         return row;
     }
 
-    public static Bitmap getBitmapFromURL(URL src) {
-        try {
-            URL url = src;
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
+
+
+    private Bitmap fetchFavicon(Uri uri) {
+        final Uri iconUri = uri.buildUpon().path("favicon.ico").build();
+
+        InputStream is = null;
+        BufferedInputStream bis = null;
+        try
+        {
+            URLConnection conn = new URL(iconUri.toString()).openConnection();
+            conn.connect();
+            is = conn.getInputStream();
+            bis = new BufferedInputStream(is, 8192);
+            return BitmapFactory.decodeStream(bis);
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }

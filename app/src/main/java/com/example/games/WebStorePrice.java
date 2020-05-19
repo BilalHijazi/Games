@@ -25,11 +25,11 @@ public class WebStorePrice extends AppCompatActivity {
             }
         });
 
-        WebView article=findViewById(R.id.store_web);
-        article.setWebViewClient(new WebViewClient());
-        article.getSettings().setJavaScriptEnabled(true);
-        article.getSettings().setDomStorageEnabled(true);
-        article.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
-        article.loadUrl(getIntent().getStringExtra("url"));
+        WebView store=findViewById(R.id.store_web);
+        store.setWebViewClient(new WebViewClient());
+        store.getSettings().setJavaScriptEnabled(true);
+        store.getSettings().setDomStorageEnabled(true);
+        store.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        store.loadUrl(getIntent().getStringExtra("url"));
     }
 }

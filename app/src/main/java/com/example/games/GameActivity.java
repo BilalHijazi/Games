@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,21 @@ public class GameActivity extends AppCompatActivity {
         TextView Genre=findViewById(R.id.genre_txt);
         final ImageView BookMark =findViewById(R.id.bookmark);
         TextView Range=findViewById(R.id.range);
+        TextView singlePlayerCheck=findViewById(R.id.singleplayer_txt);
+        TextView multiPlayerCheck=findViewById(R.id.multiplayer_checkbox);
+        TextView releaseDate=findViewById(R.id.release_date_txt);
+        TextView Series=findViewById(R.id.series_txt);
+        final ProgressBar progressBar=findViewById(R.id.progress_bar);
+
+        Series.setText("Series: "+SelectedGame.getSeries());
+
+        releaseDate.setText(SelectedGame.getReleaseDate());
+
+        if(!SelectedGame.isSinglePlayer())
+            singlePlayerCheck.setVisibility(View.GONE);
+        if(!SelectedGame.isMultiPlayer())
+            multiPlayerCheck.setVisibility(View.GONE);
+
         if(SelectedGame.getPrices()==null){
             Range.setVisibility(View.GONE);
         }
@@ -288,7 +304,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-        ListView PricesList = findViewById(R.id.prices_list);
+        final ListView PricesList = findViewById(R.id.prices_list);
 
        if(SelectedGame.getPrices()!=null) {
           final ArrayList<GamePrice> prices = SelectedGame.getPrices();
@@ -300,6 +316,7 @@ public class GameActivity extends AppCompatActivity {
                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                    Intent intent=new Intent(GameActivity.this,WebStorePrice.class);
                    intent.putExtra("url",prices.get(position).getStoreURL());
+                   startActivity(intent);
                }
            });
       }
@@ -317,7 +334,7 @@ public class GameActivity extends AppCompatActivity {
 
                     if (mAuth.getCurrentUser() != null) {
                         openDialog();
-                        Button PostBtn=dialog.findViewById(R.id.btn_post);
+                        final Button PostBtn=dialog.findViewById(R.id.btn_post);
                         Button CancelBtn=dialog.findViewById(R.id.btn_cancel);
                         final RatingBar RateBar=dialog.findViewById(R.id.rating_post);
                         final EditText Comment=dialog.findViewById(R.id.edittxt_comment);
@@ -332,6 +349,8 @@ public class GameActivity extends AppCompatActivity {
                         PostBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                progressBar.setVisibility(View.VISIBLE);
+                                PostBtn.setEnabled(false);
                                 String userID=mAuth.getCurrentUser().getUid();
                                 usersRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -352,6 +371,8 @@ public class GameActivity extends AppCompatActivity {
                                                 Toast.makeText(GameActivity.this,"Post Added!",Toast.LENGTH_SHORT).show();
                                                 adapter.notifyDataSetChanged();
                                                 ReviewButton.setEnabled(false);
+                                                PostBtn.setEnabled(true);
+                                                progressBar.setVisibility(View.GONE);
                                                 dialog.cancel();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
@@ -386,6 +407,8 @@ public class GameActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
     }
