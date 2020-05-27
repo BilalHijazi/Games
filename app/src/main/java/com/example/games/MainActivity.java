@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             password.setError("Please enter your password");
                             emailaddr.requestFocus();
                         } else {
-                            mAuth.signInWithEmailAndPassword(emailaddr.getText().toString(), password.getText().toString())
+                            mAuth.signInWithEmailAndPassword(emailaddr.getText().toString().toLowerCase().trim(), password.getText().toString())
                                     .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -306,9 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }
                                 else {
 
-
-
-                                                mAuth.createUserWithEmailAndPassword(emailaddr.getText().toString().trim(),password.getText().toString().trim())
+                                                mAuth.createUserWithEmailAndPassword(emailaddr.getText().toString().toLowerCase().trim(),password.getText().toString().trim())
                                                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<AuthResult> task) {

@@ -25,7 +25,7 @@
         android:layout_below="@+id/reviewer_username"
         android:layout_marginLeft="8dp"
         android:text="blabla@blabla.com"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold|italic" />
 
     <RatingBar
@@ -37,6 +37,19 @@
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:numStars="5" />
+
+    <TextView
+        android:id="@+id/reviewer_game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="stam gameName"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="3dp"
+        android:layout_below="@id/reviewer_rating"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        />
 
     <TextView
         android:id="@+id/reviewer_comment"

@@ -102,7 +102,6 @@
                 android:id="@+id/cover_image"
                 android:layout_width="390dp"
                 android:layout_height="400dp"
-                android:src="@drawable/dead_by_daylight"
                 android:layout_gravity="center_horizontal"
                 />
             <RelativeLayout
@@ -302,23 +301,35 @@
                 android:id="@+id/review_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Did you experienced the game? Help
-                 others by sharing your opinion:"
+                android:text="Did you experienced the game? Help others by sharing your opinion:"
                 android:textSize="24sp"
                 android:layout_marginTop="40dp"
-                android:layout_marginLeft="10dp"
+                android:paddingHorizontal="10dp"
 
                 />
 
-            <Button
-                android:id="@+id/btn_add_review"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add a review"
-                android:textSize="20sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                />
+
+                <Button
+                    android:id="@+id/btn_add_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add a review"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    />
+                <Button
+                    android:id="@+id/btn_edit_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Edit Your Review"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    />
+
+
 
             <ProgressBar
                 android:id="@+id/progress_bar"

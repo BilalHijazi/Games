@@ -97,7 +97,7 @@ public class CustomList extends BaseAdapter implements Filterable {
                          listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                              @Override
                              public void onSuccess(Uri uri) {
-                                 Glide.with(context).load(uri).placeholder(R.drawable.ic_launcher_foreground).
+                                 Glide.with(context).load(uri).centerCrop().placeholder(R.drawable.ic_launcher_foreground).
                                          into(image);
                              }
                          });

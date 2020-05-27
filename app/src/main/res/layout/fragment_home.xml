@@ -45,6 +45,7 @@
                        android:layout_height="wrap_content"
                        android:text="Most Popular! "
                        android:textSize="25sp"
+                       android:textColor="@color/colorAccent"
                        android:layout_alignParentLeft="true"
                        android:layout_alignParentTop="true"
                        android:layout_marginLeft="10dp"
@@ -57,6 +58,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="Review Count: "
+                       android:textColor="@color/colorAccent"
                        android:textSize="18sp"
                        android:layout_alignParentRight="true"
                        android:layout_alignParentBottom="true"
@@ -69,6 +71,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="0.00"
+                       android:textColor="@color/colorAccent"
                        android:textSize="25sp"
                        android:drawableRight="@drawable/ic_star"
                        android:layout_alignParentRight="true"
@@ -82,6 +85,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="stam"
+                       android:textStyle="bold"
+                       android:textColor="@color/colorAccent"
                        android:textSize="45sp"
                        android:layout_centerInParent="true"
                        />
@@ -110,6 +115,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="10dp"
+                        android:textColor="@color/colorAccent"
                         android:layout_marginTop="5dp"
                         android:drawableRight="@drawable/ic_popular"
                         android:text="Most Popular! "
@@ -133,7 +139,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="stam"
-                        android:textSize="45sp" />
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="35sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -160,6 +168,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:text="Highest Rate ! "
+                        android:textColor="@color/colorAccent"
                         android:textSize="25sp" />
 
 
@@ -168,7 +177,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:textStyle="bold"
                         android:text="stam"
+                        android:textColor="@color/colorAccent"
                         android:textSize="45sp" />
 
                     <TextView
@@ -177,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="0.00"
                         android:textSize="25sp"
+                        android:textColor="@color/colorAccent"
                         android:drawableRight="@drawable/ic_star"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
@@ -193,6 +205,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="8dp"
+                        android:textColor="@color/colorAccent"
                         android:layout_marginBottom="5dp"
                         />
 
@@ -223,6 +236,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="stam"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
                         android:textSize="45sp" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -232,6 +247,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:text="Newest ! "
+                        android:textColor="@color/colorAccent"
                         android:textSize="25sp" />
 
                     <TextView
@@ -243,6 +259,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="8dp"
+                        android:textColor="@color/colorAccent"
                         android:layout_marginBottom="5dp"
                         />
 

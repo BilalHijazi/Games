@@ -50,10 +50,12 @@ public class PriceAdapter extends ArrayAdapter<GamePrice> {
         TextView StoreName =row.findViewById(R.id.store_name);
         TextView Price=row.findViewById(R.id.price);
         TextView Website=row.findViewById(R.id.website);
+        TextView Platform=row.findViewById(R.id.price_platform);
         final ImageView Favicon=row.findViewById(R.id.favicon);
 
         StoreName.setText(gamePrice.getStoreName());
         Price.setText(gamePrice.getPrice()+"");
+        Platform.setText(gamePrice.getPlatform());
         Website.setText(gamePrice.getStoreURL());
 
         new Thread(new Runnable() {

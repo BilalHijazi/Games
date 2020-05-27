@@ -5,34 +5,24 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 public class NewsService extends Service {
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     String CHANNEL_ID;
     DatabaseReference breakingNewsRef=database.getReference("NewsAndArticles").child("breakingNews");
     Notification notification;
-
-
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,12 +33,9 @@ public class NewsService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
-
         breakingNewsRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -66,34 +53,23 @@ public class NewsService extends Service {
                     notification = builder.build();
                     notificationManager.notify(0, notification);
                 }
-
             }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent,flags,startId);
-
     }
-
-
 
     @Override
     public void onDestroy() {
@@ -122,6 +98,5 @@ public class NewsService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 }
 

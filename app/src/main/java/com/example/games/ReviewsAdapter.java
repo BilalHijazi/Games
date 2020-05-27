@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        TextView UserName,Comment,Date,Email;
+        TextView UserName,Comment,Date,Email,gameName;
         RatingBar Rating;
 
         ViewHolder(View itemView) {
@@ -43,6 +44,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             Comment=itemView.findViewById(R.id.reviewer_comment);
             Date=itemView.findViewById(R.id.review_date);
             Rating=itemView.findViewById(R.id.reviewer_rating);
+            gameName=itemView.findViewById(R.id.reviewer_game_name);
         }
 
 
@@ -54,17 +56,22 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         String email=mReviews.get(mReviews.size()-position-1).getUser().getEmailaddress();
         String comment=mReviews.get(mReviews.size()-position-1).getComment();
         String date=mReviews.get(mReviews.size()-position-1).getDate();
+        String gamename=mReviews.get(mReviews.size()-position-1).getGameName();
         float rating=mReviews.get(mReviews.size()-position-1).getRate();
         holder.UserName.setText(username);
         holder.Email.setText(email);
         holder.Comment.setText(comment);
         holder.Date.setText(date);
         holder.Rating.setRating(rating);
-    }
+        holder.gameName.setText(gamename);
+}
 
     @Override
     public int getItemCount() {
         return mReviews.size();
     }
+
+
 }
+
 

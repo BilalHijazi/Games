@@ -12,6 +12,18 @@
         android:layout_toRightOf="@+id/favicon"
         android:layout_marginLeft="8dp"
         />
+    <TextView
+        android:id="@+id/price_platform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="platform"
+        android:textSize="15sp"
+        android:layout_below="@+id/store_name"
+        android:layout_toRightOf="@+id/favicon"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+
+        />
 
     <TextView
         android:id="@+id/website"
@@ -19,7 +31,7 @@
         android:layout_height="20dp"
         android:textSize="15sp"
         android:text="stam"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="10dp"
         android:layout_alignParentBottom="true"
         />
@@ -28,7 +40,7 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:text="00"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"

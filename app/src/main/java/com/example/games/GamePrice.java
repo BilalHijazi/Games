@@ -3,13 +3,14 @@ package com.example.games;
 import java.io.Serializable;
 
 public class GamePrice implements Serializable {
-    private String StoreName,StoreURL;
+    private String StoreName,StoreURL,Platform;
     private double price;
 
-    public GamePrice(String storeName, String storeURL, double price) {
+    public GamePrice(String storeName, String storeURL, double price,String platform) {
         StoreName = storeName;
         StoreURL = storeURL;
         this.price = price;
+        Platform=platform;
     }
     public GamePrice(){}
 
@@ -38,11 +39,21 @@ public class GamePrice implements Serializable {
         this.price = price;
     }
 
+    public String getPlatform() {
+        return Platform;
+    }
+
+
+    public void setPlatform(String platform) {
+        Platform = platform;
+    }
+
     @Override
     public String toString() {
         return "GamePrice{" +
                 "StoreName='" + StoreName + '\'' +
                 ", StoreURL='" + StoreURL + '\'' +
+                ", Platform='" + Platform + '\'' +
                 ", price=" + price +
                 '}';
     }

@@ -196,13 +196,6 @@ public class GamesFragment extends Fragment {
             }
         });
 
-
-
-        ///////
-
-
-        ///////
-
         AllGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,10 +250,12 @@ public class GamesFragment extends Fragment {
 
             }
         });
+
         advancedSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final ArrayList<Game> advancedGames=new ArrayList<>();
+                listView.setAdapter(null);
                 advancedAdapter=new CustomList(getContext(),advancedGames);
                 final String singlePlatforms[]=Platforms.getText().toString().trim().split("\\s*,\\s*");
                 final String singleGenres[]=Genres.getText().toString().trim().split("\\s*,\\s*");
@@ -304,17 +299,28 @@ public class GamesFragment extends Fragment {
                                                     }
                                                     Calendar calendar = Calendar.getInstance();
                                                     calendar.setTime(d);
-                                                    if (Year1.getText().toString().equals("")||Year2.getText().toString().equals("")||Integer.parseInt(Year1.getText().toString()) <= calendar.get(Calendar.YEAR) &&
+                                                    if(Year1.getText().toString().trim().equals(""))
+                                                        Year1.setText(0+"");
+                                                if(Year2.getText().toString().trim().equals(""))
+                                                    Year2.setText(Integer.MAX_VALUE+"");
+                                                    if (Integer.parseInt(Year1.getText().toString()) <= calendar.get(Calendar.YEAR) &&
                                                             calendar.get(Calendar.YEAR) <= Integer.parseInt(Year2.getText().toString())) {
                                                         if (game.getPrices() != null) {
-                                                            Double min = game.getPrices().get(0).getPrice(), max = game.getPrices().get(0).getPrice();
+                                                            Double min = Double.MAX_VALUE, max = -1.0;
                                                             for (int i = 0; i < game.getPrices().size(); i++) {
-                                                                if (min > game.getPrices().get(i).getPrice())
-                                                                    min = game.getPrices().get(i).getPrice();
-                                                                if (max < game.getPrices().get(i).getPrice())
-                                                                    max = game.getPrices().get(i).getPrice();
+                                                                if(Platforms.getText().toString().equals("")||
+                                                                        Platforms.getText().toString().toLowerCase().contains(game.getPrices().get(i).getPlatform())) {
+                                                                    if (min > game.getPrices().get(i).getPrice())
+                                                                        min = game.getPrices().get(i).getPrice();
+                                                                    if (max < game.getPrices().get(i).getPrice())
+                                                                        max = game.getPrices().get(i).getPrice();
+                                                                }
                                                             }
-                                                            if (Double.parseDouble(From.getText().toString()) >= min && Double.parseDouble(Till.getText().toString()) <= max) {
+                                                            if(From.getText().toString().trim().equals(""))
+                                                                From.setText(0+"");
+                                                            if(Till.getText().toString().trim().equals(""))
+                                                                Till.setText(Integer.MAX_VALUE+"");
+                                                            if (Double.parseDouble(From.getText().toString()) <= max && Double.parseDouble(Till.getText().toString()) >= min) {
                                                                 advancedGames.add(game);
                                                             }
                                                         }
@@ -323,13 +329,14 @@ public class GamesFragment extends Fragment {
                                                         }
 
                                                     }
+
                                                 }
 
                                         }
                                 }
                             }
-                            advancedAdapter.notifyDataSetChanged();
                             listView.setAdapter(advancedAdapter);
+                            advancedAdapter.notifyDataSetChanged();
                             AdvancedSearch.callOnClick();
 
                         }
@@ -520,6 +527,5 @@ public class GamesFragment extends Fragment {
 
 
 }
-
 
 

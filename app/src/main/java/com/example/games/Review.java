@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 public class Review implements Serializable {
     private User user;
-    private String Comment,Date;
+    private String Comment,Date, gameName;
     private float Rate;
 
-    public Review(User user, String comment, String date,float rate) {
+    public Review(User user, String comment, String date,float rate,String gameName) {
         this.user = user;
         Comment = comment;
         Date = date;
+        this.gameName=gameName;
         Rate=rate;
     }
     public Review(){}
@@ -43,8 +44,15 @@ public class Review implements Serializable {
         return Rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(float rate) {
         Rate = rate;
+    }
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
     @Override
@@ -53,6 +61,8 @@ public class Review implements Serializable {
                 "user=" + user +
                 ", Comment='" + Comment + '\'' +
                 ", Date='" + Date + '\'' +
+                ", gameName='" + gameName + '\'' +
+                ", Rate=" + Rate +
                 '}';
     }
 }

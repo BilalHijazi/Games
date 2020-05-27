@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
         fab = view.findViewById(R.id.fab);
         Subfab1 = view.findViewById(R.id.subfab1);
@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment {
                        gamesStorage.child(PopGame.getDbID()).listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                            @Override
                            public void onSuccess(ListResult listResult) {
-                               if(listResult.getItems().size()!=0)
+                               if(listResult.getItems().size()!=0&&isAdded())
                                listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                    @Override
                                    public void onSuccess(Uri uri) {
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment {
                         gamesStorage.child(HighGame.getDbID()).listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                             @Override
                             public void onSuccess(ListResult listResult) {
-                                if(listResult.getItems().size()!=0)
+                                if(listResult.getItems().size()!=0&&isAdded())
                                 listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment {
                                 listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        Glide.with(getContext()).load(uri).placeholder(R.drawable.ic_launcher_foreground)
+                                        Glide.with(view.getContext()).load(uri).placeholder(R.drawable.ic_launcher_foreground)
                                                 .into(new CustomTarget<Drawable>() {
                                                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                                                     @Override

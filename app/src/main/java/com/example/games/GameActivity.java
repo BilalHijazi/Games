@@ -56,6 +56,10 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<Review> newRevs;
     ArrayList<Game> newBookmarks;
     myAdapterFlipper adapterFlipper;
+    Button PostBtn,CancelBtn,ReviewButton,editReview;
+    EditText Comment;
+    RatingBar RateBar;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,8 @@ public class GameActivity extends AppCompatActivity {
         toolbar.setTitle(SelectedGame.getName());
 
 
-        final Button ReviewButton=findViewById(R.id.btn_add_review);
+        ReviewButton=findViewById(R.id.btn_add_review);
+        editReview=findViewById(R.id.btn_edit_review);
         final TextView GameTitle=findViewById(R.id.game_title);
         final TextView GameRate =findViewById(R.id.game_rate);
         final ImageView CoverImage=findViewById(R.id.cover_image);
@@ -90,9 +95,9 @@ public class GameActivity extends AppCompatActivity {
         TextView multiPlayerCheck=findViewById(R.id.multiplayer_checkbox);
         TextView releaseDate=findViewById(R.id.release_date_txt);
         TextView Series=findViewById(R.id.series_txt);
-        final ProgressBar progressBar=findViewById(R.id.progress_bar);
+        progressBar=findViewById(R.id.progress_bar);
 
-        Series.setText("Series: "+SelectedGame.getSeries());
+        Series.setText("Game Series: "+SelectedGame.getSeries());
 
         releaseDate.setText(SelectedGame.getReleaseDate());
 
@@ -217,18 +222,24 @@ public class GameActivity extends AppCompatActivity {
                 icon.setImageResource(R.drawable.pc_icon);
                 icon.setLayoutParams(params);
                 linearLayout.addView(icon);
+                icon=new ImageView(this);
+
 
             }
         if(SelectedGame.getPlatforms().toLowerCase().contains("mac")){
             icon.setImageResource(R.drawable.mac_icon);
             icon.setLayoutParams(params);
             linearLayout.addView(icon);
+            icon=new ImageView(this);
+
 
         }
         if(SelectedGame.getPlatforms().toLowerCase().contains("nintendo")){
             icon.setImageResource(R.drawable.nintendo_icon);
             icon.setLayoutParams(params);
             linearLayout.addView(icon);
+            icon=new ImageView(this);
+
 
         }
 
@@ -299,8 +310,11 @@ public class GameActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser()!=null)
         for (int i=0;i<newRevs.size();i++){
             Review review=newRevs.get(i);
-            if (review.getUser().getEmailaddress().toLowerCase().equals(mAuth.getCurrentUser().getEmail().toLowerCase()))
-                ReviewButton.setEnabled(false);
+            if (review.getUser().getEmailaddress().equals(mAuth.getCurrentUser().getEmail())) {
+                ReviewButton.setVisibility(View.GONE);
+                editReview.setVisibility(View.VISIBLE);
+            }
+
         }
 
 
@@ -321,81 +335,23 @@ public class GameActivity extends AppCompatActivity {
            });
       }
 
-
-
-
-
-
-
-
         ReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                     if (mAuth.getCurrentUser() != null) {
                         openDialog();
-                        final Button PostBtn=dialog.findViewById(R.id.btn_post);
-                        Button CancelBtn=dialog.findViewById(R.id.btn_cancel);
-                        final RatingBar RateBar=dialog.findViewById(R.id.rating_post);
-                        final EditText Comment=dialog.findViewById(R.id.edittxt_comment);
-
                         CancelBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                dialog.cancel();
+                                dialog.dismiss();
                             }
                         });
 
                         PostBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                progressBar.setVisibility(View.VISIBLE);
-                                PostBtn.setEnabled(false);
-                                String userID=mAuth.getCurrentUser().getUid();
-                                usersRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        User user=dataSnapshot.getValue(User.class);
-                                        String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-                                        Review review=new Review(user,Comment.getText().toString(),currentDate,RateBar.getRating());
-
-                                        newRevs.add(review);
-
-
-                                        SelectedGame.setReviews(newRevs);
-
-                                        SelectedGame.setAvgRating(SelectedGame.getAvgRating()+((review.getRate()-SelectedGame.getAvgRating())/SelectedGame.getReviews().size()));
-                                        gamesRef.child(SelectedGame.getDbID()).setValue(SelectedGame).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(GameActivity.this,"Post Added!",Toast.LENGTH_SHORT).show();
-                                                adapter.notifyDataSetChanged();
-                                                ReviewButton.setEnabled(false);
-                                                PostBtn.setEnabled(true);
-                                                progressBar.setVisibility(View.GONE);
-                                                dialog.cancel();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                newRevs.remove(newRevs.size()-1);
-                                            }
-                                        });
-
-
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-
-
-
-
+                               addReviewToGame(SelectedGame);
                             }
                         });
 
@@ -408,6 +364,26 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+       editReview.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               for (int i = 0; i <SelectedGame.getReviews().size() ; i++) {
+                   openDialog();
+                   if(SelectedGame.getReviews().get(i).getUser().getEmailaddress().equals(mAuth.getCurrentUser().getEmail())){
+                       Comment.setText(SelectedGame.getReviews().get(i).getComment());
+                       RateBar.setRating(SelectedGame.getReviews().get(i).getRate());
+                       PostBtn.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               addReviewToGame(SelectedGame);
+                           }
+                       });
+                   }
+               }
+
+           }
+       });
+
 
 
 
@@ -419,7 +395,66 @@ public class GameActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.review_post);
         dialog.setTitle("Posting Review");
         dialog.setCancelable(false);
+         PostBtn=dialog.findViewById(R.id.btn_post);
+         CancelBtn=dialog.findViewById(R.id.btn_cancel);
+         RateBar=dialog.findViewById(R.id.rating_post);
+         Comment=dialog.findViewById(R.id.edittxt_comment);
         dialog.show();
+    }
+
+    public void addReviewToGame(final Game SelectedGame){
+                progressBar.setVisibility(View.VISIBLE);
+                PostBtn.setEnabled(false);
+                String userID=mAuth.getCurrentUser().getUid();
+                usersRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (int i=0;i<newRevs.size();i++){
+                            Review review=newRevs.get(i);
+                            if (review.getUser().getEmailaddress().equals(mAuth.getCurrentUser().getEmail())) {
+                                newRevs.remove(i);
+
+                            }
+
+                        }
+                        User user=dataSnapshot.getValue(User.class);
+                        String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                        Review review=new Review(user,Comment.getText().toString(),currentDate,RateBar.getRating(),SelectedGame.getName());
+                        newRevs.add(review);
+                        SelectedGame.setReviews(newRevs);
+                        SelectedGame.setAvgRating(SelectedGame.getAvgRating()+((review.getRate()-SelectedGame.getAvgRating())/SelectedGame.getReviews().size()));
+                        gamesRef.child(SelectedGame.getDbID()).setValue(SelectedGame).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(GameActivity.this,"Post Added!",Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                                ReviewButton.setVisibility(View.GONE);
+                                editReview.setVisibility(View.VISIBLE);
+                                PostBtn.setEnabled(true);
+                                progressBar.setVisibility(View.GONE);
+                                dialog.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                newRevs.remove(newRevs.size()-1);
+                            }
+                        });
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
