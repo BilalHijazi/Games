@@ -13,15 +13,18 @@
         android:id="@+id/article_name"
         android:layout_width="248dp"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:textSize="20sp"
         android:text="stam stam stam lslkfj addafsf sfasfafs ;sf;ls"
         />
 
     <TextView
         android:id="@+id/article_url"
         android:layout_width="248dp"
-        android:layout_height="35dp"
-        android:textSize="13sp"
+        android:layout_height="28dp"
+        android:textSize="12sp"
+        android:layout_marginLeft="8dp"
         android:text="From: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
         android:layout_alignParentBottom="true"
 />

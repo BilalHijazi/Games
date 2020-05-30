@@ -1,26 +1,19 @@
 package com.example.games;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Stack;
-
 public class MyReviews extends AppCompatActivity {
 FirebaseAuth mAuth= FirebaseAuth.getInstance();
 FirebaseDatabase database=FirebaseDatabase.getInstance();
@@ -46,7 +39,6 @@ User ThisUser;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final TextView NoItemsText=findViewById(R.id.no_reviews_txt);
         final ArrayList<Review> myReviews=new ArrayList<>();
-
         gamesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -67,13 +59,10 @@ User ThisUser;
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
         usersRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,12 +71,9 @@ User ThisUser;
                     ReviewsAdapter adapter = new ReviewsAdapter(MyReviews.this,myReviews);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

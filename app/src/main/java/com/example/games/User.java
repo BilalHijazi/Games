@@ -4,25 +4,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    private String UserName,Emailaddress,PhoneNumber;
+    private String Name,Emailaddress,PhoneNumber;
     private ArrayList<Game> BookMarks;
 
-    public User(String userName, String emailaddress, String phoneNumber) {
-        UserName = userName;
+    public User(String Name, String emailaddress) {
+        this.Name = Name;
         Emailaddress = emailaddress;
-        PhoneNumber=phoneNumber;
         BookMarks=new ArrayList<>();
     }
 
     public User() {
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getName() {
+        return Name;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getEmailaddress() {
@@ -33,13 +32,6 @@ public class User implements Serializable {
         Emailaddress = emailaddress;
     }
 
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
-    }
 
     public ArrayList<Game> getBookMarks() {
         return BookMarks;
@@ -52,9 +44,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "UserName='" + UserName + '\'' +
+                "Name='" + Name + '\'' +
                 ", Emailaddress='" + Emailaddress + '\'' +
-                ", PhoneNumber='" + PhoneNumber + '\'' +
                 ", Favorites=" + BookMarks +
                 '}';
     }

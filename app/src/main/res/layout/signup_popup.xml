@@ -9,7 +9,7 @@
         android:layout_height="100dp"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="enter your username"
+        android:hint="enter your name"
         android:inputType="textPersonName" />
 
 
@@ -31,16 +31,6 @@
         android:ems="10"
         android:hint="enter your password"
         android:inputType="textPassword" />
-
-    <EditText
-        android:layout_width="400dp"
-        android:layout_height="100dp"
-        android:id="@+id/txt_phone_number"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="enter your phone number"
-        android:inputType="phone"
-        />
 
 
     <Button

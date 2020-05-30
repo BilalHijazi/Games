@@ -3,13 +3,11 @@ package com.example.games.ui.games;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.games.Game;
 import com.example.games.GameActivity;
 import com.example.games.R;
@@ -32,19 +28,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-
-
 public class GamesFragment extends Fragment {
     ArrayList<Game>games,ActionGames,AdventureGames,StrategyGames,SportsGames;
     CustomList adapter,ActionAdapter,AdventureAdapter,StrategyAdapter,SportsAdapter,advancedAdapter;
@@ -52,15 +42,8 @@ public class GamesFragment extends Fragment {
     SearchView searchView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         View root = inflater.inflate(R.layout.fragment_games, container, false);
-
         return root;
-
-        ///from me-->
-
-
     }
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
@@ -74,7 +57,6 @@ public class GamesFragment extends Fragment {
         AdventureGames=new ArrayList<>();
         StrategyGames=new ArrayList<>();
         SportsGames=new ArrayList<>();
-
         final TextView GamesNumAction=view.findViewById(R.id.action_games_number);
         final TextView GamesNumAdventure=view.findViewById(R.id.adventure_games_number);
         final TextView GamesNumStrategy=view.findViewById(R.id.strategy_games_number);
@@ -90,10 +72,6 @@ public class GamesFragment extends Fragment {
         Button AboutSports =view.findViewById(R.id.about_sports);
         final Button AdvancedSearch = view.findViewById(R.id.advanced_search);
         final ExpandableRelativeLayout expandableRelativeLayout=view.findViewById(R.id.expandableLayout);
-        String sortBy[]={"Rating","Popularity","Release Date","Alphabetically"};
-        Spinner spinner=view.findViewById(R.id.spinner);
-        ArrayAdapter spinAdapt=new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,sortBy);
-        spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         final Button advancedSearchBtn=view.findViewById(R.id.advanced_search_btn);
         final CheckBox singlePlayer=view.findViewById(R.id.singleplayer_checkbox);
         final CheckBox multiPlayer=view.findViewById(R.id.multiplayer_checkbox);
@@ -101,9 +79,6 @@ public class GamesFragment extends Fragment {
         final EditText Year2=view.findViewById(R.id.year2);
         final TextView From=view.findViewById(R.id.price_from);
         final TextView Till=view.findViewById(R.id.price_till);
-
-
-
         adapter = new CustomList(getContext(), games);
         ActionAdapter=new CustomList(getContext(),ActionGames);
         AdventureAdapter=new CustomList(getContext(),AdventureGames);
@@ -112,7 +87,6 @@ public class GamesFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.exists()){
                     games.clear();
                     ActionGames.clear();
@@ -140,8 +114,6 @@ public class GamesFragment extends Fragment {
                         if(newText.length()>2) {
                             adapter.getFilter().filter(newText);
                     }
-
-
                     int actionNum=0,adventureNum=0,strategyNum=0,sportNum=0;
                     double actionAvg=0,adventureAvg=0,strategyAvg=0,sportAvg=0;
                     for (int i=0;i<games.size();i++){
@@ -149,25 +121,18 @@ public class GamesFragment extends Fragment {
                             actionNum++;
                             actionAvg+=games.get(i).getAvgRating();
                         }
-                        else
                         if (games.get(i).getGenres().toLowerCase().contains("adventure")){
                             adventureNum++;
                             adventureAvg+=games.get(i).getAvgRating();
-
                         }
-                        else
                         if (games.get(i).getGenres().toLowerCase().contains("strategy")){
                             strategyNum++;
                             strategyAvg+=games.get(i).getAvgRating();
-
                         }
-                        else
                         if (games.get(i).getGenres().toLowerCase().contains("sport")){
                             sportNum++;
                             sportAvg+=games.get(i).getAvgRating();
-
                         }
-
                     }
                     GamesNumAction.setText(actionNum+"");
                     GamesNumAdventure.setText(adventureNum+"");
@@ -185,14 +150,10 @@ public class GamesFragment extends Fragment {
                     AvgRatingAdventure.setText(new DecimalFormat("0.0").format(adventureAvg));
                     AvgRatingStrategy.setText(new DecimalFormat("0.0").format(strategyAvg));
                     AvgRatingSport.setText(new DecimalFormat("0.0").format(sportAvg));
-
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -216,21 +177,17 @@ public class GamesFragment extends Fragment {
             }
         });
 
-
         final EditText WordsInTitle=view.findViewById(R.id.words_in_title);
         final MultiAutoCompleteTextView Platforms=view.findViewById(R.id.platforms_tv);
         ArrayAdapter<String> platformsAdapter= new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
                 getContext().getResources().getStringArray(R.array.platforms));
         Platforms.setAdapter(platformsAdapter);
         Platforms.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
         final MultiAutoCompleteTextView Genres=view.findViewById(R.id.genres_tv);
         ArrayAdapter<String> genresAdapter= new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
                 getContext().getResources().getStringArray(R.array.genres));
         Genres.setAdapter(genresAdapter);
         Genres.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
-
         AdvancedSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,8 +203,6 @@ public class GamesFragment extends Fragment {
                     searchView.setVisibility(View.GONE);
                     AllGames.setVisibility(View.GONE);
                 }
-
-
             }
         });
 
@@ -259,8 +214,6 @@ public class GamesFragment extends Fragment {
                 advancedAdapter=new CustomList(getContext(),advancedGames);
                 final String singlePlatforms[]=Platforms.getText().toString().trim().split("\\s*,\\s*");
                 final String singleGenres[]=Genres.getText().toString().trim().split("\\s*,\\s*");
-
-
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -325,33 +278,25 @@ public class GamesFragment extends Fragment {
                                                             }
                                                         }
                                                         else {
+                                                            if(From.getText().toString().trim().equals("")&&Till.getText().toString().trim().equals(""))
                                                             advancedGames.add(game);
                                                         }
-
                                                     }
-
                                                 }
-
                                         }
                                 }
                             }
                             listView.setAdapter(advancedAdapter);
                             advancedAdapter.notifyDataSetChanged();
                             AdvancedSearch.callOnClick();
-
                         }
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
             }
         });
-
-
         AboutAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -360,9 +305,7 @@ public class GamesFragment extends Fragment {
                 dialog.setTitle("About This Genre");
                 TextView About=dialog.findViewById(R.id.about_txt);
                 Button GotIt=dialog.findViewById(R.id.got_it);
-
                 About.setText(R.string.about_action);
-
                 GotIt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -370,10 +313,8 @@ public class GamesFragment extends Fragment {
                     }
                 });
                 dialog.show();
-
             }
         });
-
         AboutAdventure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -382,9 +323,7 @@ public class GamesFragment extends Fragment {
                 dialog.setTitle("About This Genre");
                 TextView About=dialog.findViewById(R.id.about_txt);
                 Button GotIt=dialog.findViewById(R.id.got_it);
-
                 About.setText(R.string.about_adventure);
-
                 GotIt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -394,7 +333,6 @@ public class GamesFragment extends Fragment {
                 dialog.show();
             }
         });
-
         AboutStrategy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -403,9 +341,7 @@ public class GamesFragment extends Fragment {
                 dialog.setTitle("About This Genre");
                 TextView About=dialog.findViewById(R.id.about_txt);
                 Button GotIt=dialog.findViewById(R.id.got_it);
-
                 About.setText(R.string.about_strategy);
-
                 GotIt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -413,10 +349,8 @@ public class GamesFragment extends Fragment {
                     }
                 });
                 dialog.show();
-
             }
         });
-
         AboutSports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -425,9 +359,7 @@ public class GamesFragment extends Fragment {
                 dialog.setTitle("About This Genre");
                 TextView About=dialog.findViewById(R.id.about_txt);
                 Button GotIt=dialog.findViewById(R.id.got_it);
-
                 About.setText(R.string.about_sports);
-
                 GotIt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -435,26 +367,17 @@ public class GamesFragment extends Fragment {
                     }
                 });
                 dialog.show();
-
             }
         });
-
-
-
-
-
         if(getArguments()!=null&&getArguments().getInt("tosearch")==1){
             getArguments().clear();
             searchView.setIconified(false) ;
         }
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(final String newText) {
                 if(newText.length()>2) {
@@ -467,48 +390,34 @@ public class GamesFragment extends Fragment {
                 return false;
             }
         });
-
-
         CardView ActionCard=view.findViewById(R.id.action_card);
         CardView AdventureCard=view.findViewById(R.id.adventure_card);
         CardView StrategyCard=view.findViewById(R.id.strategy_card);
         CardView SportsCard=view.findViewById(R.id.sports_card);
-
-
         ActionCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                listView.setAdapter(ActionAdapter);
-
             }
         });
         AdventureCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.setAdapter(AdventureAdapter);
-
             }
         });
         StrategyCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.setAdapter(StrategyAdapter);
-
             }
         });
         SportsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.setAdapter(SportsAdapter);
-
             }
         });
-
-
-
-
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -517,15 +426,7 @@ public class GamesFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
-
-
-
-
 }
 
 

@@ -34,12 +34,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        TextView UserName,Comment,Date,Email,gameName;
+        TextView Name,Comment,Date,Email,gameName;
         RatingBar Rating;
 
         ViewHolder(View itemView) {
             super(itemView);
-            UserName = itemView.findViewById(R.id.reviewer_username);
+            Name = itemView.findViewById(R.id.reviewer_name);
             Email=itemView.findViewById(R.id.reviewer_email);
             Comment=itemView.findViewById(R.id.reviewer_comment);
             Date=itemView.findViewById(R.id.review_date);
@@ -52,13 +52,13 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String username = mReviews.get(mReviews.size()-position-1).getUser().getUserName();
+        String name = mReviews.get(mReviews.size()-position-1).getUser().getName();
         String email=mReviews.get(mReviews.size()-position-1).getUser().getEmailaddress();
         String comment=mReviews.get(mReviews.size()-position-1).getComment();
         String date=mReviews.get(mReviews.size()-position-1).getDate();
         String gamename=mReviews.get(mReviews.size()-position-1).getGameName();
         float rating=mReviews.get(mReviews.size()-position-1).getRate();
-        holder.UserName.setText(username);
+        holder.Name.setText(name);
         holder.Email.setText(email);
         holder.Comment.setText(comment);
         holder.Date.setText(date);

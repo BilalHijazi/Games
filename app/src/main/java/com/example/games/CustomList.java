@@ -113,19 +113,12 @@ public class CustomList extends BaseAdapter implements Filterable {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
             String filterString = constraint.toString().toLowerCase();
-
             FilterResults results = new FilterResults();
-
             final List<Game> list = Games;
-
             int count = list.size();
             final ArrayList<Game> nlist = new ArrayList<Game>(count);
-
             String filterableString ;
-
-
                  for (int i=0;i<count;i++){
                      filterableString=list.get(i).getName();
                      if(filterableString.toLowerCase().contains(filterString)){

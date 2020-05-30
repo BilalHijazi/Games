@@ -73,13 +73,10 @@ public class GameActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });
         toolbar.setTitle(SelectedGame.getName());
-
-
         ReviewButton=findViewById(R.id.btn_add_review);
         editReview=findViewById(R.id.btn_edit_review);
         final TextView GameTitle=findViewById(R.id.game_title);

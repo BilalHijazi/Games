@@ -7,11 +7,11 @@
     >
 
     <TextView
-        android:id="@+id/reviewer_username"
+        android:id="@+id/reviewer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stam"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
@@ -22,10 +22,10 @@
         android:id="@+id/reviewer_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/reviewer_username"
+        android:layout_below="@+id/reviewer_name"
         android:layout_marginLeft="8dp"
         android:text="blabla@blabla.com"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold|italic" />
 
     <RatingBar

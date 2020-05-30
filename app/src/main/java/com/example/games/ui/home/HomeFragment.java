@@ -1,18 +1,14 @@
 package com.example.games.ui.home;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,20 +17,13 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.games.Article;
 import com.example.games.ArticleActivity;
 import com.example.games.Game;
 import com.example.games.GameActivity;
-import com.example.games.MainActivity;
 import com.example.games.R;
 import com.example.games.Review;
 import com.example.games.ui.games.GamesFragment;
@@ -50,13 +39,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 public class HomeFragment extends Fragment {
     FloatingActionButton fab;
     FloatingActionButton Subfab1;
@@ -70,26 +57,13 @@ public class HomeFragment extends Fragment {
 
     Game PopGame,HighGame,NewGame;
     boolean isFABOpen=false;
-    private HomeViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
-
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-
         fab = view.findViewById(R.id.fab);
         Subfab1 = view.findViewById(R.id.subfab1);
         Subfab2 = view.findViewById(R.id.subfab2);
@@ -97,34 +71,24 @@ public class HomeFragment extends Fragment {
         final TextView PopGameName=view.findViewById(R.id.pop_game_name);
         final TextView PopGameRate=view.findViewById(R.id.pop_game_rate);
         final TextView ReviewCount=view.findViewById(R.id.review_count);
-
         final CardView HighGameCard=view.findViewById(R.id.highest_rate);
         final TextView HighestGameName=view.findViewById(R.id.highest_rate_title);
         final TextView HighestGameRate=view.findViewById(R.id.highest_rate_rating);
         final TextView HighestGameReviewCount=view.findViewById(R.id.highest_rate_review_count);
-
         final CardView NewGameCard=view.findViewById(R.id.new_game);
         final TextView NewGameName=view.findViewById(R.id.new_game_title);
         final TextView ReleaseDate=view.findViewById(R.id.release_date);
-
         final CardView ArticleCard =view.findViewById(R.id.top_article);
         final TextView ArticleTitle=view.findViewById(R.id.article_title);
         final TextView Url=view.findViewById(R.id.url);
-
-
-
         PopGame=new Game();
         PopGame.setReviews(new ArrayList<Review>());
         HighGame=new Game();
         NewGame=new Game();
         NewGame.setReleaseDate("00/01/0001");
-
-
-
         gamesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.exists()){
                        for (DataSnapshot ds:dataSnapshot.getChildren()){
                            if(ds.getValue(Game.class).getReviews()!=null&&PopGame.getReviews().size()<ds.getValue(Game.class).getReviews().size()){
@@ -153,10 +117,10 @@ public class HomeFragment extends Fragment {
                        NewGameName.setText(NewGame.getName());
                        ReleaseDate.setText("Released in: "+NewGame.getReleaseDate());
                        PopGameName.setText(PopGame.getName());
-                       PopGameRate.setText(new DecimalFormat("0.0").format(PopGame.getAvgRating()));
+                       PopGameRate.setText(new DecimalFormat("#.#").format(PopGame.getAvgRating()));
                        ReviewCount.setText("Review Count: "+PopGame.getReviews().size());
                        HighestGameName.setText(HighGame.getName());
-                       HighestGameRate.setText(new DecimalFormat("0.00").format(HighGame.getAvgRating()));
+                       HighestGameRate.setText(new DecimalFormat("#.##").format(HighGame.getAvgRating()));
                        if(HighGame.getReviews()!=null)
                        HighestGameReviewCount.setText("Review Count: "+HighGame.getReviews().size());
                        if(PopGame.getDbID()!=null)
@@ -213,7 +177,7 @@ public class HomeFragment extends Fragment {
                         gamesStorage.child(NewGame.getDbID()).listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                             @Override
                             public void onSuccess(ListResult listResult) {
-                                if (listResult.getItems().size()!=0)
+                                if (listResult.getItems().size()!=0&&isAdded())
                                 listResult.getItems().get(0).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
@@ -234,32 +198,13 @@ public class HomeFragment extends Fragment {
                                 });
                             }
                         });
-
-
                    }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
-
-
-        PopGameCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), GameActivity.class);
-                intent.putExtra("selected_game",PopGame);
-                startActivity(intent);
-            }
-        });
-
-
-
         Query articleQuery=newsRef.orderByKey().limitToFirst(1);
-
         articleQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -287,29 +232,43 @@ public class HomeFragment extends Fragment {
                     }
                 });
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
+        PopGameCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), GameActivity.class);
+                intent.putExtra("selected_game",PopGame);
+                startActivity(intent);
+            }
+        });
+        HighGameCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), GameActivity.class);
+                intent.putExtra("selected_game",HighGame);
+                startActivity(intent);
+            }
+        });
+        NewGameCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), GameActivity.class);
+                intent.putExtra("selected_game",NewGame);
+                startActivity(intent);
+            }
+        });
         ArticleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getContext(), ArticleActivity.class);
                 intent.putExtra("url",Url.getText().toString());
                 startActivity(intent);
-
             }
         });
-
-
-
-
-
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,9 +279,6 @@ public class HomeFragment extends Fragment {
                     closeFABMenu();
             }
         });
-
-
-
         Subfab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -334,11 +290,8 @@ public class HomeFragment extends Fragment {
                 fragment2.setArguments(bundle);
                 fragmentTransaction.replace(R.id.nav_host_fragment, fragment2);
                 fragmentTransaction.commit();
-
-
             }
         });
-
         Subfab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,10 +308,8 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
     private void showFABMenu(){
         isFABOpen=true;
-
         //Rotate fab
         fab.setImageResource(R.drawable.ic_add);
         ViewCompat.animate(fab)
@@ -367,17 +318,11 @@ public class HomeFragment extends Fragment {
                 .setDuration(300L)
                 .setInterpolator(new OvershootInterpolator(10.0F))
                 .start();
-
-
-
-
         Subfab1.animate().translationY(getResources().getDimension(R.dimen.fab1_spacing));
         Subfab2.animate().translationY(getResources().getDimension(R.dimen.fab2_spacing));
     }
-
     private void closeFABMenu(){
         isFABOpen=false;
-
         //Rotate fab
         ViewCompat.animate(fab)
                 .rotation(0.0F)
@@ -385,13 +330,8 @@ public class HomeFragment extends Fragment {
                 .setDuration(300L)
                 .setInterpolator(new OvershootInterpolator(10.0F))
                 .start();
-
         fab.setImageResource(R.drawable.ic_search);
-
         Subfab1.animate().translationY(0);
         Subfab2.animate().translationY(0);
     }
-
-
-
 }
