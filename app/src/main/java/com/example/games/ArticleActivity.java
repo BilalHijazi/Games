@@ -1,19 +1,11 @@
 package com.example.games;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-
 public class ArticleActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,23 +20,11 @@ public class ArticleActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         WebView article=findViewById(R.id.article_web);
         article.setWebViewClient(new WebViewClient());
         article.getSettings().setJavaScriptEnabled(true);
         article.getSettings().setDomStorageEnabled(true);
         article.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
         article.loadUrl(getIntent().getStringExtra("url"));
-
-
-
-
-
-
-
-
-
-
-
     }
 }

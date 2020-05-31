@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     >
-
     <TextView
         android:id="@+id/reviewer_name"
         android:layout_width="wrap_content"
@@ -17,7 +15,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         />
-
     <TextView
         android:id="@+id/reviewer_email"
         android:layout_width="wrap_content"
@@ -27,7 +24,6 @@
         android:text="blabla@blabla.com"
         android:textSize="12sp"
         android:textStyle="bold|italic" />
-
     <RatingBar
         android:id="@+id/reviewer_rating"
         style="@android:style/Widget.Holo.Light.RatingBar.Small"
@@ -37,7 +33,6 @@
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:numStars="5" />
-
     <TextView
         android:id="@+id/reviewer_game_name"
         android:layout_width="wrap_content"
@@ -50,7 +45,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         />
-
     <TextView
         android:id="@+id/reviewer_comment"
         android:layout_width="370dp"
@@ -61,10 +55,7 @@
         android:layout_marginLeft="20dp"
         android:text="aaaaaaa aaaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaa aaaaaaaaa"
         android:textSize="20sp"
-
-
         android:textStyle="normal" />
-    
     <TextView
         android:id="@+id/review_date"
         android:layout_width="wrap_content"
@@ -75,7 +66,4 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
         />
-
-   
-
 </RelativeLayout>

@@ -4,17 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="110dp"
     >
-
-
     <ImageView
         android:id="@+id/listview_image"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
         android:contentDescription="@string/app_name"
-
       />
-
     <TextView
         android:id="@+id/listview_item_title"
         android:layout_width="match_parent"
@@ -23,10 +19,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_toRightOf="@+id/listview_image"
-
-
           />
-
     <TextView
         android:id="@+id/listview_item_description"
         android:layout_width="match_parent"
@@ -37,5 +30,4 @@
         android:layout_below="@+id/listview_item_title"
         android:layout_toRightOf="@+id/listview_image"
         />
-
 </RelativeLayout>

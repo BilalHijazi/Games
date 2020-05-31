@@ -9,19 +9,15 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> implements Filterable {
     private List<Article> mAricles;
     private LayoutInflater mInflater;
@@ -29,32 +25,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
     private Context context;
     public MyFilter mFilter;
     StorageReference storageRef= FirebaseStorage.getInstance().getReference("NewsPics");
-
     public NewsAdapter(Context context, ArrayList<Article> data) {
         this.context=context;
         this.mInflater = LayoutInflater.from(context);
         this.mAricles = data;
         this.filteredData=new ArrayList<>();
     }
-
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final View view = mInflater.inflate(R.layout.news_item, parent, false);
         return new ViewHolder(view);
-
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         TextView Title,Url;
         ImageView imageView;
-
         ViewHolder(View itemView) {
             super(itemView);
             Title = itemView.findViewById(R.id.article_name);
             Url=itemView.findViewById(R.id.article_url);
             imageView=itemView.findViewById(R.id.article_image);
             itemView.setOnClickListener(this);
-
         }
         @Override
         public void onClick(View view) {
@@ -62,16 +52,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
             intent.putExtra("url",Url.getText().toString());
             context.startActivity(intent);
         }
-
     }
-
     @Override
     public void onBindViewHolder(final NewsAdapter.ViewHolder holder, int position) {
         String title = mAricles.get(position).getTitle();
         String url=mAricles.get(position).getArticleURL();
         holder.Title.setText(title);
         holder.Url.setText(url);
-
             storageRef.child(mAricles.get(position).getCoverId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -84,39 +71,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
                     // Handle any errors
                 }
             });
-
-
-
     }
-
     @Override
     public Filter getFilter() {
-
         if (mFilter == null){
             filteredData.clear();
             filteredData.addAll(this.mAricles);
             mFilter = new NewsAdapter.MyFilter(this,filteredData);
         }
         return mFilter;
-
     }
-
-
     private static class MyFilter extends Filter {
-
         private final NewsAdapter myAdapter;
         private final List<Article> originalList;
         private final List<Article> filteredList;
-
         private MyFilter(NewsAdapter myAdapter, List<Article> originalList) {
             this.myAdapter = myAdapter;
             this.originalList = originalList;
             this.filteredList = new ArrayList<Article>();
         }
-
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-
             filteredList.clear();
             final FilterResults results = new FilterResults();
             if (charSequence.length() == 0){
@@ -129,27 +104,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
                     }
                 }
             }
-
             results.values = filteredList;
             results.count = filteredList.size();
             return results;
-
         }
-
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
             myAdapter.mAricles.clear();
             myAdapter.mAricles.addAll((ArrayList<Article>)filterResults.values);
             myAdapter.notifyDataSetChanged();
-
         }
     }
     @Override
     public int getItemCount() {
         return mAricles.size();
     }
-
-
-
 }

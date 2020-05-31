@@ -3,8 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-
     <EditText
         android:id="@+id/txt_emailaddr"
         android:layout_width="400dp"
@@ -13,7 +11,6 @@
         android:ems="10"
         android:hint="enter your email"
         android:inputType="textEmailAddress" />
-
     <EditText
         android:id="@+id/txt_password"
         android:layout_width="400dp"
@@ -22,7 +19,6 @@
         android:ems="10"
         android:hint="enter your password"
         android:inputType="textPassword" />
-
     <Button
         android:id="@+id/popup_login"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -30,7 +26,6 @@
         android:layout_height="70dp"
         android:layout_weight="1"
         android:text="LOGIN" />
-
     <Button
         android:id="@+id/popup_cancel"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -38,7 +33,6 @@
         android:layout_height="70dp"
         android:layout_weight="1"
         android:text="CANCEL" />
-
     <TextView
         android:id="@+id/txt_signup"
         android:layout_width="match_parent"
@@ -48,6 +42,4 @@
         android:textColor="@android:color/holo_blue_light"
         android:text="Still without an account? Click here!"
         android:layout_gravity="center"/>
-
-
 </LinearLayout>

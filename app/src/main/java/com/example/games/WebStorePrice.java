@@ -1,15 +1,11 @@
 package com.example.games;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 public class WebStorePrice extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +20,6 @@ public class WebStorePrice extends AppCompatActivity {
                 finish();
             }
         });
-
         WebView store=findViewById(R.id.store_web);
         store.setWebViewClient(new WebViewClient());
         store.getSettings().setJavaScriptEnabled(true);

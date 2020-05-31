@@ -1,42 +1,31 @@
 package com.example.games;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
-
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.database.DataSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
     private List<Review> mReviews;
     private LayoutInflater mInflater;
-
     // data is passed into the constructor
     public ReviewsAdapter(Context context, ArrayList<Review> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mReviews = data;
     }
-
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.review_item, parent, false);
         return new ViewHolder(view);
     }
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder  {
         TextView Name,Comment,Date,Email,gameName;
         RatingBar Rating;
-
         ViewHolder(View itemView) {
             super(itemView);
             Name = itemView.findViewById(R.id.reviewer_name);
@@ -46,10 +35,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             Rating=itemView.findViewById(R.id.reviewer_rating);
             gameName=itemView.findViewById(R.id.reviewer_game_name);
         }
-
-
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String name = mReviews.get(mReviews.size()-position-1).getUser().getName();
@@ -65,13 +51,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         holder.Rating.setRating(rating);
         holder.gameName.setText(gamename);
 }
-
     @Override
     public int getItemCount() {
         return mReviews.size();
     }
-
-
 }
 
 
