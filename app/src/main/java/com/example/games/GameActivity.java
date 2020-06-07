@@ -39,6 +39,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -134,6 +135,9 @@ public class GameActivity extends AppCompatActivity {
                 BookMark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(mAuth.getCurrentUser()==null)
+                            Toast.makeText(GameActivity.this, "You should login first", Toast.LENGTH_LONG).show();
+                        else
                         if(dataSnapshot.getValue(User.class).getBookMarks()!=null&&IsGameContained(dataSnapshot.getValue(User.class).getBookMarks(),SelectedGame)){
                             newBookmarks=dataSnapshot.getValue(User.class).getBookMarks();
                             RemoveGameFromList(newBookmarks,SelectedGame);
@@ -180,7 +184,7 @@ public class GameActivity extends AppCompatActivity {
         Genre.setText(SelectedGame.getGenres());
         GameTitle.setText(SelectedGame.getName());
         Publisher.setText("Publisher: "+SelectedGame.getPublisher());
-        GameRate.setText(SelectedGame.getAvgRating()+"");
+        GameRate.setText(new DecimalFormat("#.#").format(SelectedGame.getAvgRating()));
         final LinearLayout linearLayout=findViewById(R.id.platforms_layout);
             ImageView icon=new ImageView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
